@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tl"><head><meta charset="utf-8">
+<html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Trade Radar (Paper Only)</title>
 <style>
@@ -121,39 +121,50 @@ h1.big{font-size:40px;line-height:1.1;margin:0;letter-spacing:.5px}
 .mini{padding:5px 12px;font-size:13px}.sellb{background:var(--rd);color:#fff}.row input{max-width:150px}
 </style></head><body><div class="app"><aside><div class="brand"><svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="#19e07a" stroke-width="2"><circle cx="15" cy="15" r="13"/><circle cx="15" cy="15" r="6" stroke-opacity=".6"/><path d="M15 15L25 7"/></svg><span>TRADE <i>RADAR</i></span></div>
 <button class="nv on">&#9678; Radar</button><button class="nv">&#128200; Backtester</button><button class="nv">&#128091; Copy-Trade</button><button class="nv">&#128268; API Collector</button><button class="nv">&#129302; Auto-Buy</button><button class="nv">&#128260; Auto Copy</button>
-<div class="side-note">Subukan. Suriin. Saka mag-risk.<small>Paper only. Hindi financial advice.</small></div></aside>
-<main><div class="top"><input id="q" class="search" placeholder="Hanapin ang wallet..." autocomplete="off"><span class="pill">PAPER ONLY &middot; walang totoong pera</span></div>
+<div class="side-note">Test it. Check it. Then risk.<small>Paper only. Not financial advice.</small></div></aside>
+<main><div class="top" style="flex-wrap:wrap"><input id="q" class="search" placeholder="Search wallets..." autocomplete="off"><input id="sc_key" class="search" type="password" placeholder="Paste your fomoapi.io API key here" autocomplete="off" style="flex:1 1 100%;max-width:none" enterkeyhint="go"><button id="sc_save" type="button">Save key</button><button id="sc_clear" type="button" class="alt">Clear saved key</button><span class="pill">PAPER ONLY &middot; no real money</span></div>
 <section class="sec on" id="s0"><div class="g2"><div class="card"><h1 class="big">TRADE <i>RADAR</i></h1>
-<p class="sub">Subukan muna sa papel. Alamin kung profitable pa rin ang strategy o kopya pagkatapos ng fees, slippage, at delay.</p>
-<div class="hg"><div class="rcs"><div class="rc"><span>Backtest return</span><b id="rc1">-</b></div><div class="rc"><span>Buy and hold</span><b id="rc2">-</b></div><div class="rc"><span>Wallet (ideal)</span><b id="rc3">-</b></div><div class="rc"><span>Kopya mo (realistic)</span><b id="rc4">-</b></div></div><svg class="radar" viewBox="0 0 300 300" role="img" aria-label="Radar"><defs><linearGradient id="sw" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#19e07a" stop-opacity="0"/><stop offset="1" stop-color="#19e07a" stop-opacity=".55"/></linearGradient></defs>
+<p class="sub">Test on paper first. Find out whether a strategy or a copied wallet is still profitable after fees, slippage and delay.</p>
+<div class="hg"><div class="rcs"><div class="rc"><span>Backtest return</span><b id="rc1">-</b></div><div class="rc"><span>Buy and hold</span><b id="rc2">-</b></div><div class="rc"><span>Wallet (ideal)</span><b id="rc3">-</b></div><div class="rc"><span>Your copy (realistic)</span><b id="rc4">-</b></div></div><svg class="radar" viewBox="0 0 300 300" role="img" aria-label="Radar"><defs><linearGradient id="sw" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#19e07a" stop-opacity="0"/><stop offset="1" stop-color="#19e07a" stop-opacity=".55"/></linearGradient></defs>
 <g fill="none" stroke="#19e07a" stroke-opacity=".35"><circle cx="150" cy="150" r="140" stroke-opacity=".9" stroke-width="2"/><circle cx="150" cy="150" r="105"/><circle cx="150" cy="150" r="70"/><circle cx="150" cy="150" r="35"/><path d="M150 10V290M10 150H290"/></g>
 <g class="sweep"><path d="M150 150L150 10A140 140 0 0 1 249 51Z" fill="url(#sw)"/><path d="M150 150L249 51" stroke="#19e07a" stroke-width="2"/></g>
 <g><circle cx="90" cy="80" r="15" fill="#19e07a" stroke="#070b0a" stroke-width="2"/><text x="90" y="80" text-anchor="middle" dy=".35em" font-size="13" font-weight="700" fill="#fff">W</text></g><g><circle cx="215" cy="105" r="15" fill="#4aa3ff" stroke="#070b0a" stroke-width="2"/><text x="215" y="105" text-anchor="middle" dy=".35em" font-size="13" font-weight="700" fill="#fff">S</text></g><g><circle cx="70" cy="170" r="15" fill="#b06bff" stroke="#070b0a" stroke-width="2"/><text x="70" y="170" text-anchor="middle" dy=".35em" font-size="13" font-weight="700" fill="#fff">D</text></g><g><circle cx="210" cy="200" r="15" fill="#ff5c5c" stroke="#070b0a" stroke-width="2"/><text x="210" y="200" text-anchor="middle" dy=".35em" font-size="13" font-weight="700" fill="#fff">L</text></g><g><circle cx="125" cy="225" r="15" fill="#e0b341" stroke="#070b0a" stroke-width="2"/><text x="125" y="225" text-anchor="middle" dy=".35em" font-size="13" font-weight="700" fill="#fff">M</text></g><g><circle cx="170" cy="60" r="15" fill="#19c7c7" stroke="#070b0a" stroke-width="2"/><text x="170" y="60" text-anchor="middle" dy=".35em" font-size="13" font-weight="700" fill="#fff">K</text></g></svg></div></div>
 <div class="rcol"><div class="card"><h2>Top Wallets <span class="demo" id="d1">DEMO</span></h2><div id="tt"></div></div>
 <div class="card"><h2>Recent Alerts <span class="demo">DEMO</span></h2><div id="al2"></div></div></div></div>
-<div class="card"><h2>Hot Wallets <span class="demo" id="d3">DEMO</span></h2><div class="row" style="margin:0 0 10px"><label style="margin:0">Mag-upload ng CSV ng mga trader (galing sa fomo_collect.py):</label><input type="file" id="mf" multiple accept=".csv,.txt" style="max-width:260px"></div><p class="sub2" id="sb">Pindutin ang isa para pumunta sa Copy-Trade at subukan ang kopya. Gawa-gawang data ito para sa itsura lang.</p><div class="hot" id="hot"></div></div>
-<div class="cta" style="margin-top:14px"><div><b>Subukan muna bago maglagay ng totoong pera.</b><br><span>Tunay na data, tapat na resulta. Huwag ibigay ang private key kahit kanino.</span></div><button id="go">Simulan ang scan &rarr;</button></div></section>
+<div class="card"><h2>Hot Wallets <span class="demo" id="d3">DEMO</span></h2><div class="row" style="margin:0 0 10px"><label style="margin:0">Upload trader CSVs (from fomo_collect.py):</label><input type="file" id="mf" multiple accept=".csv,.txt" style="max-width:260px"></div><p class="sub2" id="sb">Click one to open Copy-Trade and test copying it. This is made-up data for looks only.</p><div class="hot" id="hot"></div></div>
+<div class="card" id="scancard"><h2>Scan ng Tokens <span class="demo" id="sc_d">NOT SCANNED YET</span></h2>
+<p class="sub2">This fetches the top traders and trending tokens from fomoapi.io using your key. Requests go straight from your browser to api.fomoapi.io; the key is not written into the file. Paper only, no real trades.</p>
+<div class="grid"><div><label>Leaderboard window</label><select id="sc_win"><option>24h</option><option>7d</option><option>30d</option><option>all</option></select></div>
+<div><label>Number of traders</label><input id="sc_n" type="number" value="8" min="1" max="30"></div>
+<div><label>Min cost per position ($)</label><input id="sc_min" type="number" value="0" min="0"></div></div>
+<div class="row"><label style="margin:0;display:flex;gap:6px;align-items:center"><input id="sc_rem" type="checkbox" style="width:auto"> Remember on this browser</label><label style="margin:0;display:flex;gap:6px;align-items:center"><input id="sc_auto" type="checkbox" style="width:auto" checked> Auto-run Auto Copy after the scan</label><button id="go">Start scan &rarr;</button></div>
+<div class="verdict" id="sc_st" style="min-height:20px">Paste your API key in the box at the top. The scan starts automatically.</div>
+<div id="sc_out" style="display:none">
+<h2 style="margin-top:14px">Trending tokens on FOMO</h2><div class="wrap"><table id="sc_tr"></table></div>
+<h2 style="margin-top:14px">Tokens the top traders entered</h2><div class="wrap"><table id="sc_hot"></table></div>
+<p class="warn" style="margin-top:8px">"Status" is open/closed as reported by FOMO. Only closed positions are used in Hot Wallets and Auto Copy, because only they have a real entry and exit. Not financial advice.</p></div></div>
+<div class="cta" style="margin-top:14px"><div><b>Test first before putting in real money.</b><br><span>Real data, honest results. Never give your private key to anyone.</span></div></div></section>
 <section class="sec" id="s1">
 <h1 style="display:none">Paper Trade Backtester</h1>
-<p class="sub">Subukan ang strategy sa pekeng pera. Walang tunay na trade, walang internet na kailangan.</p>
+<p class="sub">Test the strategy with fake money. No real trades, no internet needed.</p>
 
 <div class="card">
 <div class="grid">
-<div><label>Pinagmulan ng presyo</label>
-<select id="a_src"><option value="gen">Sample (random, para sa demo)</option><option value="csv">Sarili kong data (CSV)</option></select></div>
-<div><label>Seed (para sa sample)</label><input id="a_seed" type="number" value="42"></div>
-<div><label>Puhunan (pekeng pera)</label><input id="a_cap" type="number" value="10000"></div>
+<div><label>Price source</label>
+<select id="a_src"><option value="gen">Sample (random, for demo)</option><option value="csv">My own data (CSV)</option></select></div>
+<div><label>Seed (for the sample)</label><input id="a_seed" type="number" value="42"></div>
+<div><label>Starting capital (fake money)</label><input id="a_cap" type="number" value="10000"></div>
 <div><label>Fast SMA</label><input id="a_fast" type="number" value="10"></div>
 <div><label>Slow SMA</label><input id="a_slow" type="number" value="30"></div>
-<div><label>Fee bawat trade (%)</label><input id="a_fee" type="number" step="0.01" value="0.10"></div>
+<div><label>Fee per trade (%)</label><input id="a_fee" type="number" step="0.01" value="0.10"></div>
 <div><label>Slippage (%)</label><input id="a_slip" type="number" step="0.01" value="0.05"></div>
 </div>
 <div id="a_csvbox" style="display:none;margin-top:10px">
-<label>I-paste ang CSV (isang presyo kada linya, o date,close). Lumang to bago.</label>
+<label>Paste CSV (one price per line, or date,close). Oldest to newest.</label>
 <textarea id="a_csv" placeholder="2024-01-01,42000&#10;2024-01-02,42500"></textarea>
 <div class="row"><input type="file" id="a_file" accept=".csv,.txt"></div>
 </div>
-<div class="row"><button id="a_run">I-run ang backtest</button></div>
+<div class="row"><button id="a_run">Run backtest</button></div>
 </div>
 
 <div class="card" id="a_out" style="display:none">
@@ -164,24 +175,24 @@ h1.big{font-size:40px;line-height:1.1;margin:0;letter-spacing:.5px}
 <canvas id="a_cv" width="800" height="260"></canvas>
 <div class="leg"><span style="color:var(--ac)">&#9632;</span> Strategy &nbsp; <span style="color:var(--bh)">&#9632;</span> Buy and hold</div>
 </div>
-<p class="warn">Hindi ito financial advice. Ang resulta ng backtest ay hindi garantiya sa live trading. Ang sample data ay random lang, kaya hindi nito pinapatunayan na profitable ang strategy; gamitin ang tunay na historical data (mula sa freqtrade o exchange) para sa totoong pagsubok.</p>
+<p class="warn">Not financial advice. Backtest results do not guarantee live trading results. The sample data is random, so it does not prove the strategy is profitable; use real historical data (from freqtrade or an exchange) for a real test.</p>
 
 </section>
 <section class="sec" id="s2">
 <h1 style="display:none">Wallet Copy-Trade Simulator</h1>
-<p class="sub">Alamin kung profitable pa rin ang pag-copy ng isang wallet pagkatapos ng delay, slippage, at fees. Pekeng pera lang, walang koneksyon sa wallet o exchange.</p>
+<p class="sub">Find out whether copying a wallet is still profitable after delay, slippage and fees. Fake money only, no connection to any wallet or exchange.</p>
 
 <div class="card">
-<label>Trades ng wallet (isang linya kada trade, pagkakasunod-sunod ng oras): <code>oras,token,buy/sell,presyo</code></label>
+<label>Wallet trades (one line per trade, in time order): <code>time,token,buy/sell,price</code></label>
 <textarea id="b_csv"></textarea>
-<div class="row"><input type="file" id="b_file" accept=".csv,.txt" style="max-width:260px"><button class="alt" id="b_demo">Gumamit ng sample</button></div>
+<div class="row"><input type="file" id="b_file" accept=".csv,.txt" style="max-width:260px"><button class="alt" id="b_demo">Use sample</button></div>
 <div class="grid" style="margin-top:12px">
-<div><label>Laki ng kopya kada buy ($)</label><input id="b_size" type="number" value="50"></div>
-<div><label>Fee kada trade (%)</label><input id="b_fee" type="number" step="0.1" value="1"></div>
+<div><label>Copy size per buy ($)</label><input id="b_size" type="number" value="50"></div>
+<div><label>Fee per trade (%)</label><input id="b_fee" type="number" step="0.1" value="1"></div>
 <div><label>Slippage (%)</label><input id="b_slip" type="number" step="0.1" value="2"></div>
 <div><label>Late-entry penalty (%)</label><input id="b_pen" type="number" step="0.1" value="5"></div>
 </div>
-<div class="row"><button id="b_run">I-simulate</button></div>
+<div class="row"><button id="b_run">Simulate</button></div>
 </div>
 
 <div class="card" id="b_out" style="display:none">
@@ -189,98 +200,84 @@ h1.big{font-size:40px;line-height:1.1;margin:0;letter-spacing:.5px}
 <div class="verdict" id="b_verdict"></div>
 </div>
 <div class="card" id="b_sweep" style="display:none">
-<h2>Gaano kabilis mawala ang kita kapag mas late ang pasok mo?</h2>
+<h2>How fast does the profit disappear the later you enter?</h2>
 <div class="wrap"><table id="b_swt"></table></div>
 </div>
 <div class="card" id="b_det" style="display:none">
-<h2>Kada token (realistic na kopya)</h2>
+<h2>Per token (realistic copy)</h2>
 <div class="wrap"><table id="b_dt"></table></div>
 </div>
 
-<p class="warn">Mga palagay: kapag nag-buy ang wallet, bibili ka ng fixed na halaga; kapag nag-sell ito, ibebenta mo ang buong hawak mo sa token na iyon. Ang late-entry penalty ay ang mas masamang presyong nakukuha mo dahil sa delay (mas mataas sa buy, mas mababa sa sell). Ang bukas na posisyon ay minamarkahan sa huling presyo ng token sa log. Hindi ito financial advice at hindi garantiya ng resulta.</p>
+<p class="warn">Assumptions: when the wallet buys, you buy a fixed amount; when it sells, you sell your entire holding in that token. The late-entry penalty is the worse price you get because of delay (higher on buys, lower on sells). Open positions are marked at the token's last price in the log. Not financial advice and no guarantee of results.</p>
 
 
-<p class="warn">Tip: patakbuhin ang <code>fomo_collect.py</code> sa computer mo para makakuha ng CSV bawat trader, tapos i-upload dito. Nasa tab na API Collector ang script.</p></section>
-<section class="sec" id="s3"><div class="card"><h2>Ilagay ang Fomo API key dito</h2>
-<p class="sub2">Ilalagay mo ang key sa field sa ibaba; hindi ito nakasulat sa file at diretso lang itong ipapadala ng browser mo sa getfomoapi.fun. Gagana lang ito kapag binuksan mo ang file sa computer mo o naka-host na ang page, hindi sa preview dito. Huwag gamitin sa computer ng iba.</p>
-<div class="grid"><div><label>API key</label><input id="f_key" type="password" placeholder="fomo_live_..." autocomplete="off"></div>
-<div><label>Leaderboard window</label><select id="f_win" style="width:100%;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)"><option>24h</option><option>7d</option><option>30d</option><option>all</option></select></div>
-<div><label>Ilang trader</label><input id="f_n" type="number" value="10"></div>
-<div><label>Big buy lang (min $)</label><input id="f_min" type="number" value="500"></div></div>
-<div class="row"><label style="margin:0;display:flex;gap:6px;align-items:center"><input id="f_rem" type="checkbox" style="width:auto"> Tandaan sa browser na ito</label><button id="f_go">Kunin ang data</button></div>
-<div class="verdict" id="f_st" style="min-height:20px"></div>
-<details style="margin-top:8px"><summary class="warn">Raw na response (para sa pag-aayos ng mga field)</summary><textarea id="f_raw" readonly style="min-height:140px"></textarea></details>
-<p class="warn">Pagkatapos makuha, awtomatikong lalabas ang mga trader sa Radar (Hot Wallets) at sa Auto Copy tab. Hindi ko pa nasubukan ito sa totoong API at hindi ko alam kung pinapayagan nito ang tawag mula sa browser. Kung hindi, gamitin ang script sa ibaba sa computer mo. Paper trading lang ito at hindi financial advice.</p></div>
-<div class="card"><h2>API Collector (sa computer mo tatakbo)</h2>
-<p class="sub2">Hindi tumatawag ng API ang page na ito at hindi dapat ilagay dito ang API key. Ang script sa ibaba ang kukuha ng data sa computer mo at gagawa ng CSV.</p>
+<p class="warn">Tip: run <code>fomo_collect.py</code> on your computer to get one CSV per trader, then upload them here. The script is in the API Collector tab.</p></section>
+<section class="sec" id="s3"><div class="card"><h2>API (fomoapi.io)</h2>
+<p class="sub2">The scan is in the Radar tab (paste your key in the box at the top). Here you can see the API's raw response if any fields need fixing.</p>
+<details open><summary class="warn">Raw response</summary><textarea id="f_raw" readonly style="min-height:140px"></textarea></details></div>
+<div class="card"><h2>API Collector (runs on your computer)</h2>
+<p class="sub2">Optional: if you don't want to enter the key in the browser, run the script below on your computer to produce the CSVs.</p>
 <ol style="margin:0 0 12px;padding-left:20px;line-height:1.8">
-<li>Mag-sign in sa getfomoapi.fun gamit ang Google at gumawa ng API key (independent na serbisyo ito, hindi official ng Fomo; tingnan ang presyo sa docs nila).</li>
-<li>I-copy ang script sa ibaba at i-save bilang <code>fomo_collect.py</code>.</li>
-<li><code>pip install requests</code>, tapos i-set ang <code>FOMO_API_KEY</code> bilang environment variable.</li>
-<li><code>python fomo_collect.py</code>. Lalabas ang mga CSV sa folder na <code>out/</code>.</li>
-<li>I-upload ang mga CSV sa Radar (Hot Wallets) o sa Copy-Trade tab.</li></ol>
-<div class="row" style="margin:0 0 8px"><button id="cp">Kopyahin ang script</button><span class="warn" id="cps"></span></div>
+<li>Sign in at fomoapi.io/dashboard and copy your API key (this is an independent service, not official from fomo.family).</li>
+<li>Copy the script below and save it as <code>fomo_collect.py</code>.</li>
+<li><code>pip install requests</code>, then set <code>FOMO_API_KEY</code> as an environment variable.</li>
+<li><code>python fomo_collect.py</code>. The CSVs appear in the <code>out/</code> folder.</li>
+<li>Upload the CSVs in Radar (Hot Wallets) or the Copy-Trade tab.</li></ol>
+<div class="row" style="margin:0 0 8px"><button id="cp">Copy script</button><span class="warn" id="cps"></span></div>
 <textarea id="pyc" readonly spellcheck="false" style="min-height:340px">&quot;&quot;&quot;
-fomo_collect.py - PAPER ONLY. Walang wallet key, walang totoong trade.
+fomo_collect.py - PAPER ONLY. No wallet key, no real trades.
 
-Kumukuha ng top traders at swaps nila mula sa third-party &quot;Fomo API&quot;
-(getfomoapi.fun), tapos nagse-save ng CSV bawat trader na puwede mong
-i-upload sa Wallet Copy-Trade Simulator.
+Fetches the top traders and their positions from fomoapi.io,
+then saves one CSV per trader (time,token,buy/sell,price,size$) that
+you can upload to Hot Wallets or the Copy-Trade tab.
 
 Setup:
     pip install requests
-    export FOMO_API_KEY=&quot;fomo_live_...&quot;      (Windows: set FOMO_API_KEY=...)
+    export FOMO_API_KEY=&quot;your-key&quot;      (Windows: set FOMO_API_KEY=...)
 Run:
     python fomo_collect.py
-
-BABALA: hindi ko na-verify ang eksaktong format ng response ng API na ito.
-Laging tingnan muna ang mga file sa raw/ at i-adjust ang FIELDS sa ibaba.
 &quot;&quot;&quot;
 import os, sys, csv, json, time
+from datetime import datetime
 import requests
 
-BASE = &quot;https://getfomoapi.fun&quot;
+BASE = &quot;https://api.fomoapi.io&quot;
 KEY = os.environ.get(&quot;FOMO_API_KEY&quot;)
 if not KEY:
-    sys.exit(&quot;I-set muna ang FOMO_API_KEY (environment variable).&quot;)
-H = {&quot;X-API-Key&quot;: KEY}
+    sys.exit(&quot;Set FOMO_API_KEY (environment variable) first.&quot;)
+H = {&quot;authorization&quot;: &quot;Bearer &quot; + KEY}
 
-WINDOW = &quot;24h&quot;        # leaderboard window
-TOP_N = 10            # ilang trader ang kukunin
-MIN_BUY_USD = 500     # &quot;big buy&quot; lang ang kokopyahin (sells laging kasama)
-
-# Posibleng pangalan ng field. I-edit batay sa nakita mo sa raw/*.json
-FIELDS = {
-    &quot;time&quot;:  [&quot;timestamp&quot;, &quot;time&quot;, &quot;createdAt&quot;, &quot;blockTime&quot;, &quot;date&quot;],
-    &quot;token&quot;: [&quot;tokenSymbol&quot;, &quot;symbol&quot;, &quot;tokenAddress&quot;, &quot;mint&quot;, &quot;token&quot;],
-    &quot;side&quot;:  [&quot;side&quot;, &quot;type&quot;, &quot;action&quot;, &quot;direction&quot;],
-    &quot;price&quot;: [&quot;priceUsd&quot;, &quot;price&quot;, &quot;tokenPrice&quot;],
-    &quot;usd&quot;:   [&quot;usdValue&quot;, &quot;valueUsd&quot;, &quot;amountUsd&quot;, &quot;usd&quot;, &quot;volumeUsd&quot;],
-}
-ID_KEYS = [&quot;id&quot;, &quot;userId&quot;, &quot;user_id&quot;]
-HANDLE_KEYS = [&quot;handle&quot;, &quot;username&quot;, &quot;name&quot;]
+WINDOW = &quot;24h&quot;        # leaderboard window: 24h, 7d, 30d, all
+TOP_N = 10            # how many traders to fetch
+MIN_COST_USD = 0      # skip positions smaller than this
 
 os.makedirs(&quot;raw&quot;, exist_ok=True)
 os.makedirs(&quot;out&quot;, exist_ok=True)
 
 
 def get(path, params=None):
-    for _ in range(3):
-        time.sleep(0.25)  # limit: 5 requests/segundo
+    for _ in range(5):
+        time.sleep(0.5)  # free key: 20 requests/minute
         r = requests.get(BASE + path, headers=H, params=params, timeout=30)
-        if r.status_code == 429:  # sobra ang request, maghintay
-            time.sleep(float(r.headers.get(&quot;Retry-After&quot;, 2)))
+        if r.status_code == 429:
+            time.sleep(float(r.headers.get(&quot;Retry-After&quot;, 10)))
             continue
+        if r.status_code == 401:
+            sys.exit(&quot;Invalid API key (401).&quot;)
+        if r.status_code == 402:
+            sys.exit(&quot;Out of credits (402).&quot;)
         r.raise_for_status()
         return r.json()
-    sys.exit(&quot;Sobra ang request (429). Subukan ulit mamaya.&quot;)
+    sys.exit(&quot;Too many requests (429). Try again later.&quot;)
 
 
-def first_list(obj):
-    &quot;&quot;&quot;Hanapin ang unang listahan ng dict sa response, anuman ang hugis.&quot;&quot;&quot;
+def first_list(obj, keys=()):
     if isinstance(obj, list):
         return obj
     if isinstance(obj, dict):
+        for k in keys:
+            if isinstance(obj.get(k), list):
+                return obj[k]
         for v in obj.values():
             found = first_list(v)
             if found and isinstance(found[0], dict):
@@ -288,99 +285,93 @@ def first_list(obj):
     return []
 
 
-def pick(d, keys):
-    for k in keys:
-        if k in d and d[k] not in (None, &quot;&quot;):
-            return d[k]
-    return None
+def t(s):
+    return datetime.fromisoformat(s.replace(&quot;Z&quot;, &quot;+00:00&quot;)).timestamp()
 
 
-def side_of(v):
-    s = str(v or &quot;&quot;).lower()
-    if s.startswith(&quot;b&quot;):
-        return &quot;buy&quot;
-    if s.startswith(&quot;s&quot;):
-        return &quot;sell&quot;
-    return None
+def num(x):
+    try:
+        return float(x)
+    except (TypeError, ValueError):
+        return 0.0
 
 
 def save_raw(name, data):
-    with open(f&quot;raw/{name}.json&quot;, &quot;w&quot;) as f:
+    with open(&quot;raw/%s.json&quot; % name, &quot;w&quot;) as f:
         json.dump(data, f, indent=2)
 
 
 def main():
-    board = get(f&quot;/api/leaderboard/{WINDOW}&quot;, {&quot;limit&quot;: TOP_N})
+    board = get(&quot;/v2/leaderboard/&quot; + WINDOW, {&quot;limit&quot;: TOP_N})
     save_raw(&quot;leaderboard&quot;, board)
-    traders = first_list(board)[:TOP_N]
+    traders = first_list(board, (&quot;traders&quot;,))[:TOP_N]
     if not traders:
-        sys.exit(&quot;Walang trader na nakuha. Tingnan ang raw/leaderboard.json&quot;)
+        sys.exit(&quot;No traders returned. Check raw/leaderboard.json&quot;)
 
-    for t in traders:
-        uid = pick(t, ID_KEYS)
-        handle = str(pick(t, HANDLE_KEYS) or uid)
-        if not uid and pick(t, HANDLE_KEYS):
-            prof = get(f&quot;/api/users/{handle}&quot;)  # may wrapper na responseObject
-            uid = pick(prof.get(&quot;responseObject&quot;, prof), ID_KEYS)
-        if not uid:
-            print(&quot;Walang id:&quot;, t)
-            continue
-        swaps_raw = get(f&quot;/api/users/{uid}/swaps&quot;, {&quot;limit&quot;: 50})
-        save_raw(f&quot;swaps_{handle}&quot;, swaps_raw)
-        rows, skipped = [], 0
-        for s in first_list(swaps_raw):
-            side = side_of(pick(s, FIELDS[&quot;side&quot;]))
-            price = pick(s, FIELDS[&quot;price&quot;])
-            token = pick(s, FIELDS[&quot;token&quot;])
-            ts = pick(s, FIELDS[&quot;time&quot;])
-            usd = pick(s, FIELDS[&quot;usd&quot;])
-            try:
-                price = float(price)
-                usd = float(usd) if usd is not None else 0.0
-            except (TypeError, ValueError):
-                skipped += 1
+    for tr in traders:
+        uid = tr.get(&quot;userId&quot;) or tr.get(&quot;handle&quot;)
+        handle = str(tr.get(&quot;handle&quot;) or uid)
+        data = get(&quot;/v2/users/%s/positions&quot; % uid)
+        save_raw(&quot;positions_&quot; + handle, data)
+        rows = []
+        for p in first_list(data, (&quot;positions&quot;, &quot;trades&quot;)):
+            tok = p.get(&quot;token&quot;) or {}
+            sym = tok.get(&quot;symbol&quot;) or &quot;&quot;
+            adr = tok.get(&quot;address&quot;) or &quot;&quot;
+            name = (sym or adr[:6]) + (&quot;_&quot; + adr[:4] if adr else &quot;&quot;)
+            entry, exit_ = num(p.get(&quot;avgEntryPrice&quot;)), num(p.get(&quot;avgExitPrice&quot;))
+            if p.get(&quot;status&quot;) != &quot;closed&quot; or entry &lt;= 0 or exit_ &lt;= 0:
+                continue  # only closed positions have a real entry and exit
+            cost = num(p.get(&quot;costBasisUsd&quot;))
+            if cost &lt; MIN_COST_USD:
                 continue
-            if not (side and token and ts) or price &lt;= 0:
-                skipped += 1
+            if not (p.get(&quot;createdAt&quot;) and p.get(&quot;closedAt&quot;)):
                 continue
-            if side == &quot;buy&quot; and usd &lt; MIN_BUY_USD:
-                continue  # hindi &quot;big buy&quot;
-            rows.append((str(ts), str(token), side, price))
-        rows.sort(key=lambda r: r[0])  # lumang trade muna
-        path = f&quot;out/{handle}.csv&quot;
+            rows.append((p[&quot;createdAt&quot;], name, &quot;buy&quot;, entry, cost))
+            rows.append((p[&quot;closedAt&quot;], name, &quot;sell&quot;, exit_, cost))
+        rows.sort(key=lambda r: t(r[0]))
+        safe = &quot;&quot;.join(c if c.isalnum() or c in &quot;._-&quot; else &quot;_&quot; for c in handle)
+        path = &quot;out/%s.csv&quot; % safe
         with open(path, &quot;w&quot;, newline=&quot;&quot;) as f:
             csv.writer(f).writerows(rows)
-        print(f&quot;{handle}: {len(rows)} trades -&gt; {path} (nilaktawan: {skipped})&quot;)
-        if not rows:
-            print(&quot;  Walang laman. Baka iba ang pangalan ng field; i-edit ang FIELDS.&quot;)
+        print(&quot;%s: %d rows -&gt; %s&quot; % (handle, len(rows), path))
 
 
 if __name__ == &quot;__main__&quot;:
     main()
 </textarea>
-<p class="warn">Hindi ko pa nasubukan ang script sa totoong API. Tingnan ang mga file sa raw/ at i-edit ang FIELDS kung kailangan. Hindi ito financial advice.</p></div></section>
+<p class="warn">This script has not been tested against the real API. Check the files in raw/ and adjust the script if needed. Not financial advice.</p></div></section>
 <section class="sec" id="s4"><div class="card"><h2>Auto-Buy (Paper)</h2>
-<p class="sub2">Awtomatikong bibili ang simulation kapag may buy ang wallet, ayon sa mga patakaran mo, at ibebenta kapag nag-sell ang wallet, tumama sa stop loss, o tumama sa take profit. Pekeng pera lang; walang totoong order.</p>
-<label>Trades ng wallet (oras,token,buy/sell,presyo)</label><textarea id="c_csv"></textarea>
-<div class="row"><button class="alt" id="c_from">Kunin mula sa Copy-Trade tab</button><input type="file" id="c_file" accept=".csv,.txt" style="max-width:260px"></div>
-<div class="grid" style="margin-top:12px"><div><label>Pekeng puhunan ($)</label><input id="c_cap" type="number"  value="1000"></div><div><label>Laki kada buy ($)</label><input id="c_size" type="number"  value="50"></div><div><label>Max na bukas na posisyon</label><input id="c_maxp" type="number"  value="5"></div><div><label>Stop loss (%, 0 = wala)</label><input id="c_sl" type="number"  value="20"></div><div><label>Take profit (%, 0 = wala)</label><input id="c_tp" type="number"  value="50"></div><div><label>Fee kada trade (%)</label><input id="c_fee" type="number" step="0.1" value="1"></div><div><label>Slippage (%)</label><input id="c_slip" type="number" step="0.1" value="2"></div><div><label>Late-entry penalty (%)</label><input id="c_pen" type="number" step="0.1" value="5"></div></div>
-<div class="row"><button id="c_run">I-run ang auto-buy</button></div></div>
+<p class="sub2">The simulation buys automatically when the wallet buys, following your rules, and sells when the wallet sells or when stop loss or take profit is hit. Fake money only; no real orders.</p>
+<label>Wallet trades (time,token,buy/sell,price)</label><textarea id="c_csv"></textarea>
+<div class="row"><button class="alt" id="c_from">Get from Copy-Trade tab</button><input type="file" id="c_file" accept=".csv,.txt" style="max-width:260px"></div>
+<div class="grid" style="margin-top:12px"><div><label>Fake starting capital ($)</label><input id="c_cap" type="number"  value="1000"></div><div><label>Size per buy ($)</label><input id="c_size" type="number"  value="50"></div><div><label>Max open positions</label><input id="c_maxp" type="number"  value="5"></div><div><label>Stop loss (%, 0 = none)</label><input id="c_sl" type="number"  value="20"></div><div><label>Take profit (%, 0 = none)</label><input id="c_tp" type="number"  value="50"></div><div><label>Fee per trade (%)</label><input id="c_fee" type="number" step="0.1" value="1"></div><div><label>Slippage (%)</label><input id="c_slip" type="number" step="0.1" value="2"></div><div><label>Late-entry penalty (%)</label><input id="c_pen" type="number" step="0.1" value="5"></div></div>
+<div class="row"><button id="c_run">Run auto-buy</button></div></div>
 <div class="card" id="c_out" style="display:none"><div class="stats" id="c_stats"></div><div class="verdict" id="c_v"></div></div>
-<div class="card" id="c_cc" style="display:none"><canvas id="c_cv" width="800" height="260"></canvas><div class="leg">Halaga ng pekeng account (cash + hawak) bawat trade ng wallet.</div></div>
-<div class="card" id="c_lg" style="display:none"><h2>Log ng paper trades</h2><div class="wrap"><table id="c_t"></table></div></div>
-<p class="warn">Limitasyon: ang stop loss at take profit ay sinusuri lang tuwing may bagong trade ang wallet sa token na iyon, dahil iyon lang ang presyong alam natin. Sa totoo, puwedeng gumalaw nang malaki ang presyo sa pagitan. Ang mga token na hindi na muling na-trade ay minamarkahan sa huling presyo. Hindi ito financial advice at hindi ito totoong auto-buy.</p></section>
+<div class="card" id="c_cc" style="display:none"><canvas id="c_cv" width="800" height="260"></canvas><div class="leg">Fake account value (cash + holdings) at each wallet trade.</div></div>
+<div class="card" id="c_lg" style="display:none"><h2>Paper trade log</h2><div class="wrap"><table id="c_t"></table></div></div>
+<p class="warn">Limitation: stop loss and take profit are only checked when the wallet makes a new trade in that token, because that is the only price we know. In reality the price can move a lot in between. Tokens that are never traded again are marked at the last price. Not financial advice and not real auto-buy.</p></section>
 <section class="sec" id="s5"><div class="card"><h2>Auto Copy-Trade (Paper)</h2>
-<p class="sub2">Awtomatikong kokopyahin ng bot ang mga trade ng mga wallet habang nagpe-play ang data. Hindi mo kailangang pindutin ang buy o sell. Pekeng pera ito, at replay ng nakaraang data, hindi live na market.</p>
-<div class="row" style="margin:0 0 6px"><label style="margin:0">Mga wallet (isang CSV kada wallet):</label><input type="file" id="p_files" multiple accept=".csv,.txt" style="max-width:260px"><button class="alt mini" id="p_use">Gamitin ang data sa Copy-Trade tab</button></div>
+<p class="sub2">The bot automatically copies the wallets' trades as the data plays. You don't have to press buy or sell. This is fake money and a replay of past data, not a live market.</p>
+<div class="row" style="margin:0 0 6px"><label style="margin:0">Wallets (one CSV per wallet):</label><input type="file" id="p_files" multiple accept=".csv,.txt" style="max-width:260px"><button class="alt mini" id="p_use">Use the data from the Copy-Trade tab</button></div>
 <div class="warn" id="p_wl"></div>
-<div class="grid" style="margin-top:12px"><div><label>Pekeng puhunan ($)</label><input id="p_cap" type="number"  value="1000"></div><div><label>Laki kada kopya ($)</label><input id="p_size" type="number"  value="50"></div><div><label>Max na bukas na posisyon</label><input id="p_maxp" type="number"  value="5"></div><div><label>Stop loss (%, 0 = wala)</label><input id="p_sl" type="number"  value="20"></div><div><label>Take profit (%, 0 = wala)</label><input id="p_tp" type="number"  value="50"></div><div><label>Fee kada trade (%)</label><input id="p_fee" type="number" step="0.1" value="1"></div><div><label>Slippage (%)</label><input id="p_slip" type="number" step="0.1" value="2"></div><div><label>Late-entry penalty (%)</label><input id="p_pen" type="number" step="0.1" value="5"></div>
-<div><label>Bilis (trades kada segundo)</label><select id="p_rate" style="width:100%;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)"><option>1</option><option selected>2</option><option>5</option><option>20</option></select></div></div>
-<div class="row"><button id="p_start">&#9654; Simulan ang auto copy</button><button class="alt" id="p_pause">Pause</button><button class="alt" id="p_reset">I-reset</button><span class="warn" id="p_prog"></span></div>
+<div class="grid" style="margin-top:12px"><div><label>Fake starting capital ($)</label><input id="p_cap" type="number"  value="1000"></div><div><label>Size per copy ($)</label><input id="p_size" type="number"  value="50"></div><div><label>Max open positions</label><input id="p_maxp" type="number"  value="5"></div><div><label>Stop loss (%, 0 = none)</label><input id="p_sl" type="number"  value="20"></div><div><label>Take profit (%, 0 = none)</label><input id="p_tp" type="number"  value="50"></div><div><label>Fee per trade (%)</label><input id="p_fee" type="number" step="0.1" value="1"></div><div><label>Slippage (%)</label><input id="p_slip" type="number" step="0.1" value="2"></div><div><label>Late-entry penalty (%)</label><input id="p_pen" type="number" step="0.1" value="5"></div><div><label>Big buys only (min wallet buy $, 0 = all)</label><input id="p_big" type="number" value="500"></div>
+<div><label>Speed (trades per second)</label><select id="p_rate" style="width:100%;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)"><option>1</option><option selected>2</option><option>5</option><option>20</option><option>100</option><option>1000</option></select></div></div>
+<div class="row"><button id="p_start">&#9654; Start auto copy</button><button class="alt" id="p_pause">Pause</button><button class="alt" id="p_reset">Reset</button><span class="warn" id="p_prog"></span></div>
 <div class="verdict" id="p_msg" style="min-height:20px"></div></div>
 <div class="card"><div class="stats" id="p_stats"></div></div>
-<div class="card"><h2>Mga hawak ng bot</h2><div class="wrap"><table id="p_pos"></table></div></div>
-<div class="card"><h2>Log ng auto copy</h2><div class="wrap"><table id="p_log"></table></div></div>
-<p class="warn">Limitasyon: sinusuri lang ang stop loss at take profit kapag may bagong trade ang wallet sa token na iyon. Kapag maraming wallet, pinag-uuri ayon sa oras kung may oras ang CSV; kung wala, salitan ang mga wallet. Hindi ito totoong auto copy trade at hindi financial advice.</p></section>
+<div class="card"><h2>Bot holdings</h2><div class="wrap"><table id="p_pos"></table></div></div>
+<div class="card"><h2>Auto copy log</h2><div class="wrap"><table id="p_log"></table></div></div>
+<p class="warn">Limitation: stop loss and take profit are only checked when the wallet makes a new trade in that token. With several wallets, trades are sorted by time if the CSV has timestamps; otherwise the wallets alternate. This is not real auto copy trading and not financial advice.</p><div class="card"><h2>LIVE Auto Copy (Paper) <span class="demo">REALTIME</span></h2>
+<p class="sub2">Listens to FOMO's live alerts. When there is a big buy (per "Big buys only" above), your paper account buys at the current price, including slippage and late-entry penalty. When the wallet sells, you sell too. Fake money only, no real orders. It uses the settings above and the API key from the box at the top.</p>
+<div class="grid"><div><label>Refresh prices every (seconds, 0 = off). Each refresh costs credits</label><input id="l_ref" type="number" value="1800" min="0"></div></div>
+<div class="row"><label style="margin:0;display:flex;gap:6px;align-items:center"><input id="l_only" type="checkbox" style="width:auto"> Only traders from the scan</label><button id="l_start">&#9654; Start (new)</button><button class="alt" id="l_resume">Resume</button><button class="alt" id="l_stop">Stop</button><button class="alt" id="l_mark">Update prices now</button><button class="alt" id="l_dl">Download log (CSV)</button></div>
+<div class="verdict" id="l_msg" style="min-height:20px">Not running yet.</div>
+<h2 style="margin-top:14px">Simulation report</h2><div id="l_rep"></div><canvas id="l_cv" width="800" height="180" style="margin-top:10px"></canvas><div class="stats" id="l_stats" style="margin-top:10px"></div>
+<h2 style="margin-top:14px">Open positions (live)</h2><div class="wrap"><table id="l_pos"></table></div>
+<h2 style="margin-top:14px">Log (live)</h2><div class="wrap"><table id="l_log"></table></div>
+<p class="warn" style="margin-top:8px">Limitations: FOMO only sends large trades (positions of about $3,000 and up), so alerts are sparse. Each copied buy costs one API call for the price (250 credits), and so does each price refresh per trader with an open copy. A free key (250,000 credits per month) is only about 1,000 calls, so don't set the refresh too short. If refresh is 0, stop loss/take profit are not checked and open positions are not valued correctly. The simulation is saved in the browser and resumes automatically when you reopen the page (if "Remember on this browser" is ticked), but nothing is copied while the tab is closed. Best left open on a computer that doesn't sleep. A free key is realtime only for the first 7 days, then delayed 15 seconds. Not financial advice.</p></div>
+</section>
 </main></div>
 <script>
 (function(){
@@ -394,7 +385,7 @@ function sma(a,i,n){let s=0;for(let k=i-n+1;k<=i;k++)s+=a[k];return s/n}
 function run(){
  const P=$('a_src').value==='gen'?gen(+$('a_seed').value||1):parse($('a_csv').value);
  const cap=+$('a_cap').value,f=+$('a_fast').value,s=+$('a_slow').value,fee=+$('a_fee').value/100,sl=+$('a_slip').value/100;
- if(P.length<s+5||f>=s||f<1){alert('Kulang ang data o mali ang SMA (dapat mas maliit ang fast kaysa slow).');return}
+ if(P.length<s+5||f>=s||f<1){alert('Not enough data or invalid SMA (fast must be smaller than slow).');return}
  let cash=cap,u=0,entry=0,trades=0,wins=0,eq=[],bh=[];
  const b0=P[s-1],bu=cap/b0*(1-fee);
  for(let i=s-1;i<P.length;i++){
@@ -408,11 +399,11 @@ function run(){
  const mu=r.reduce((a,b)=>a+b,0)/r.length,sd=Math.sqrt(r.reduce((a,b)=>a+(b-mu)**2,0)/r.length);
  const sh=sd?mu/sd*Math.sqrt(365):0;
  const pc=v=>(v*100).toFixed(1)+'%',cl=v=>v>=0?'pos':'neg';
- const S=[['Final na pera','$'+last.toFixed(0),''],['Return',pc(ret),cl(ret)],['Buy and hold',pc(bret),cl(bret)],['Max drawdown',pc(dd(eq)),'neg'],['Dami ng trades',trades,''],['Win rate',trades?pc(wins/trades):'-',''],['Sharpe (tantya)',sh.toFixed(2),cl(sh)]];
+ const S=[['Final capital','$'+last.toFixed(0),''],['Return',pc(ret),cl(ret)],['Buy and hold',pc(bret),cl(bret)],['Max drawdown',pc(dd(eq)),'neg'],['Number of trades',trades,''],['Win rate',trades?pc(wins/trades):'-',''],['Sharpe (estimate)',sh.toFixed(2),cl(sh)]];
  $('a_stats').innerHTML=S.map(x=>`<div class="s"><span>${x[0]}</span><b class="${x[2]}">${x[1]}</b></div>`).join('');
- let v=ret>bret?'Natalo ng strategy ang buy-and-hold sa data na ito':'Hindi natalo ng strategy ang buy-and-hold';
- if(trades<30)v+='. Kaunti ang trades ('+trades+'), kaya posibleng swerte lang. Maghangad ng daan-daan.';
- else v+='. Subukan din sa ibang period (out-of-sample) bago magtiwala.';
+ let v=ret>bret?'The strategy lost to buy-and-hold on this data':'The strategy did not lose to buy-and-hold';
+ if(trades<30)v+='. Few trades ('+trades+'), so it may just be luck. Aim for hundreds.';
+ else v+='. Also test on a different period (out-of-sample) before trusting it.';
  $('a_verdict').textContent=v;
  $('a_out').style.display=$('a_chartcard').style.display='block';
  draw(eq,bh)}
@@ -438,19 +429,19 @@ function sim(T,size,fee,slip,pen){
   sp+=q.spent;go+=q.got;n++;if(q.got>q.spent)w++;rows.push({k,r:q.got/q.spent-1,open})}
  return{sp,go,n,w,ret:sp?go/sp-1:0,rows}}
 function run(){
- const T=parse($('b_csv').value);if(T.length<4){alert('Kulang ang data. Format: oras,token,buy/sell,presyo');return}
+ const T=parse($('b_csv').value);if(T.length<4){alert('Not enough data. Format: time,token,buy/sell,price');return}
  const size=+$('b_size').value,fee=+$('b_fee').value/100,slip=+$('b_slip').value/100,pen=+$('b_pen').value/100;
  const ideal=sim(T,size,0,0,0),real=sim(T,size,fee,slip,pen);
  const pc=v=>(v*100).toFixed(1)+'%',cl=v=>v>=0?'pos':'neg',pl=real.go-real.sp;
- const S=[['Return ng wallet (ideal, walang delay)',pc(ideal.ret),cl(ideal.ret)],['Return ng kopya mo (realistic)',pc(real.ret),cl(real.ret)],['Kita/lugi (pekeng $)',(pl>=0?'+':'')+'$'+pl.toFixed(0),cl(pl)],['Nai-trade na token',real.n,''],['Win rate (kopya)',real.n?pc(real.w/real.n):'-','']];
+ const S=[['Wallet return (ideal, no delay)',pc(ideal.ret),cl(ideal.ret)],['Your copy return (realistic)',pc(real.ret),cl(real.ret)],['Profit/loss (fake $)',(pl>=0?'+':'')+'$'+pl.toFixed(0),cl(pl)],['Tokens traded',real.n,''],['Win rate (copy)',real.n?pc(real.w/real.n):'-','']];
  $('b_stats').innerHTML=S.map(x=>`<div class="s"><span>${x[0]}</span><b class="${x[2]}">${x[1]}</b></div>`).join('');
- let v=ideal.ret>0&&real.ret<=0?'Profitable ang wallet sa papel, pero nawala ang kita pagkatapos ng delay at gastos. Ito ang pinakakaraniwang nangyayari sa copy trading.':real.ret>0?'Profitable pa rin ang kopya sa mga setting na ito. Subukan ang mas mataas na penalty sa talaan sa ibaba, at huwag magtiwala sa maliit na sample.':'Hindi profitable ang kopya sa mga setting na ito.';
- if(real.n<30)v+=' Kaunti ang token ('+real.n+'), kaya malaki ang tsansang swerte lang.';
+ let v=ideal.ret>0&&real.ret<=0?'The wallet is profitable on paper, but the profit disappeared after delay and costs. This is what most commonly happens in copy trading.':real.ret>0?'The copy is still profitable with these settings. Try a higher penalty in the table below, and don\'t trust a small sample.':'The copy is not profitable with these settings.';
+ if(real.n<30)v+=' Few tokens ('+real.n+'), so it is quite likely just luck.';
  $('b_verdict').textContent=v;
- let h='<tr><th>Penalty</th><th>Return ng kopya</th><th>Kita/lugi</th></tr>';
+ let h='<tr><th>Penalty</th><th>Copy return</th><th>Profit/loss</th></tr>';
  [0,2,5,10,20,30].forEach(p=>{const r=sim(T,size,fee,slip,p/100),d=r.go-r.sp;h+=`<tr><td>${p}%</td><td class="${cl(r.ret)}">${pc(r.ret)}</td><td class="${cl(d)}">${d>=0?'+':'-'}$${Math.abs(d).toFixed(0)}</td></tr>`});
  $('b_swt').innerHTML=h;
- $('b_dt').innerHTML='<tr><th>Token</th><th>Return</th><th>Estado</th></tr>'+real.rows.map(r=>`<tr><td>${r.k}</td><td class="${cl(r.r)}">${pc(r.r)}</td><td>${r.open?'bukas':'sarado'}</td></tr>`).join('');
+ $('b_dt').innerHTML='<tr><th>Token</th><th>Return</th><th>Status</th></tr>'+real.rows.map(r=>`<tr><td>${r.k}</td><td class="${cl(r.r)}">${pc(r.r)}</td><td>${r.open?'open':'closed'}</td></tr>`).join('');
  ['b_out','b_sweep','b_det'].forEach(i=>$(i).style.display='block')}
 function demo(){let s=1234;const R=()=>{s=(s*1664525+1013904223)%4294967296;return s/4294967296};const N=()=>(R()+R()+R()+R()-2)*1.7;let o=[],t=1;
  for(let i=1;i<=40;i++){const m=Math.exp(N()*0.9+0.03);o.push(`${t++},TOKEN${i},buy,1`);o.push(`${t++},TOKEN${i},sell,${m.toFixed(3)}`)}
@@ -465,24 +456,24 @@ function upd(){map.forEach(([st,i,t])=>{const b=g(st).querySelectorAll('b')[i];i
 ['a_stats','b_stats'].forEach(st=>new MutationObserver(upd).observe(g(st),{childList:true}));upd();
 const nv=document.querySelectorAll('.nv');
 function sw(n){['s0','s1','s2','s3','s4','s5'].forEach((x,k)=>g(x).classList.toggle('on',k===n));nv.forEach((b,k)=>b.classList.toggle('on',k===n));if(n===1)g('a_run').click();if(n===4)g('c_run').click();scrollTo(0,0)}
-nv.forEach((b,k)=>b.onclick=()=>sw(k));g('go').onclick=()=>sw(2)})();
+nv.forEach((b,k)=>b.onclick=()=>sw(k))})();
 (function(){const g=i=>document.getElementById(i);
 let D=[{n:'whale_alpha',r:24.6,t:38,b:2400},{n:'sol_sniper',r:18.3,t:112,b:650},{n:'degen_mia',r:15.7,t:64,b:900},{n:'lowkey_jun',r:12.4,t:27,b:1300},{n:'moon_dad',r:10.9,t:51,b:520}];
 const A=[['#19e07a','Big buy','whale_alpha','2m'],['#e0b341','Profit up','sol_sniper','8m'],['#b06bff','Big buy','degen_mia','12m'],['#ff5c5c','Large sell','lowkey_jun','18m']];
 const col=i=>`hsl(${(i*67+140)%360} 60% 40%)`;
 function render(q){const L=D.filter(d=>d.n.includes(q.toLowerCase().trim()));
-g('tt').innerHTML=L.map((d,i)=>`<div class="tr"><em>${i+1}</em><span class="av" style="background:${col(i)}">${d.n[0].toUpperCase()}</span><div><b>${d.n}</b><small>${d.t} trades</small></div><strong class="${d.r>=0?'pos':'neg'}">${d.r>=0?'&uarr;':'&darr;'} ${d.r}%</strong></div>`).join('')||'<small>Walang tugma.</small>';
-g('hot').innerHTML=L.map((d,i)=>`<button class="hc"><div class="hv" style="background:linear-gradient(135deg,${col(i)},#0c1412)">${d.n[0].toUpperCase()}</div><b>${d.n}</b><small>Laki $${d.b}/buy</small><strong class="${d.r>=0?'pos':'neg'}">${d.r>=0?'&uarr;':'&darr;'} ${d.r}%</strong></button>`).join('');
+g('tt').innerHTML=L.map((d,i)=>`<div class="tr"><em>${i+1}</em><span class="av" style="background:${col(i)}">${d.n[0].toUpperCase()}</span><div><b>${d.n}</b><small>${d.t} trades</small></div><strong class="${d.r>=0?'pos':'neg'}">${d.r>=0?'&uarr;':'&darr;'} ${d.r}%</strong></div>`).join('')||'<small>No match.</small>';
+g('hot').innerHTML=L.map((d,i)=>`<button class="hc"><div class="hv" style="background:linear-gradient(135deg,${col(i)},#0c1412)">${d.n[0].toUpperCase()}</div><b>${d.n}</b><small>Size $${d.b}/buy</small><strong class="${d.r>=0?'pos':'neg'}">${d.r>=0?'&uarr;':'&darr;'} ${d.r}%</strong></button>`).join('');
 document.querySelectorAll('.hc').forEach(b=>b.onclick=()=>document.querySelectorAll('.nv')[2].click())}
 g('al2').innerHTML=A.map(a=>`<div class="tr" style="grid-template-columns:12px 1fr auto"><span class="dot" style="background:${a[0]};margin:0"></span><div><b>${a[1]}</b><small>${a[2]}</small></div><small>${a[3]} ago</small></div>`).join('');
 function pr(t){const o=[];t.split(/\r?\n/).forEach(l=>{const c=l.split(/[,;\t]/).map(x=>x.trim());if(c.length<4)return;const p=parseFloat(c[3]),x=c[2].toLowerCase()[0];if(isFinite(p)&&p>0&&(x==='b'||x==='s'))o.push({k:c[1],b:x==='b',p})});return o}
 function sm(T,size,fee,slip,pen){const P={},last={};T.forEach(t=>{last[t.k]=t.p;const q=P[t.k]||(P[t.k]={u:0,sp:0,go:0});if(t.b){q.u+=size*(1-fee)/(t.p*(1+slip+pen));q.sp+=size}else if(q.u>0){q.go+=q.u*t.p*(1-slip-pen)*(1-fee);q.u=0}});let sp=0,go=0;for(const k in P){const q=P[k];if(q.u>0)q.go+=q.u*last[k]*(1-fee);sp+=q.sp;go+=q.go}return sp?go/sp-1:0}
 g('mf').onchange=async e=>{const o=[];const sz=+g('b_size').value,fee=+g('b_fee').value/100,sl=+g('b_slip').value/100,pn=+g('b_pen').value/100;
 for(const f of e.target.files){const T=pr(await f.text());if(T.length<4)continue;o.push({n:f.name.replace(/\.[^.]+$/,''),r:+(sm(T,sz,fee,sl,pn)*100).toFixed(1),t:T.length,b:sz})}
-if(!o.length){alert('Walang nabasang trades. Format: oras,token,buy/sell,presyo');return}
-o.sort((a,b)=>b.r-a.r);D=o;g('d1').textContent=g('d3').textContent='CSV MO';g('d1').style.color=g('d3').style.color='var(--ac)';g('d1').style.borderColor=g('d3').style.borderColor='var(--ac)';
-g('sb').textContent='Ranggo ito ng realistic na kopya gamit ang fee, slippage, at penalty na nasa Copy-Trade tab. Kaunting trades ay puwedeng swerte lang.';render(g('q').value)};
-g('cp').onclick=()=>{const t=g('pyc');t.select();let ok=false;try{ok=document.execCommand('copy')}catch(x){}g('cps').textContent=ok?'Nakopya na.':'Piliin na ang laman; pindutin ang Ctrl+C.'};
+if(!o.length){alert('No trades could be read. Format: time,token,buy/sell,price');return}
+o.sort((a,b)=>b.r-a.r);D=o;g('d1').textContent=g('d3').textContent='YOUR CSV';g('d1').style.color=g('d3').style.color='var(--ac)';g('d1').style.borderColor=g('d3').style.borderColor='var(--ac)';
+g('sb').textContent='This ranks the realistic copy using the fee, slippage and penalty from the Copy-Trade tab. Few trades can just be luck.';render(g('q').value)};
+g('cp').onclick=()=>{const t=g('pyc');t.select();let ok=false;try{ok=document.execCommand('copy')}catch(x){}g('cps').textContent=ok?'Copied.':'Contents selected; press Ctrl+C.'};
 g('q').oninput=e=>render(e.target.value);render('')})();
 (function(){const g=i=>document.getElementById(i);
 function pr(t){const o=[];t.split(/\r?\n/).forEach(l=>{const c=l.split(/[,;\t]/).map(x=>x.trim());if(c.length<4)return;const p=parseFloat(c[3]),x=c[2].toLowerCase()[0];if(isFinite(p)&&p>0&&(x==='b'||x==='s'))o.push({k:c[1],b:x==='b',p})});return o}
@@ -501,79 +492,239 @@ const mn=Math.min(cap,...a),mx=Math.max(cap,...a),Y=v=>H-pad-(v-mn)/(mx-mn||1)*(
 x.strokeStyle=cs.getPropertyValue('--bd');x.lineWidth=1;x.beginPath();x.moveTo(0,Y(cap));x.lineTo(W,Y(cap));x.stroke();
 x.strokeStyle=cs.getPropertyValue('--ac').trim();x.lineWidth=3;x.beginPath();a.forEach((v,i)=>{const px=i/(a.length-1||1)*W;i?x.lineTo(px,Y(v)):x.moveTo(px,Y(v))});x.stroke()}
 function run(){if(!g('c_csv').value.trim())g('c_csv').value=g('b_csv').value;const T=pr(g('c_csv').value);
-if(T.length<4){alert('Kulang ang data. Format: oras,token,buy/sell,presyo');return}
+if(T.length<4){alert('Not enough data. Format: time,token,buy/sell,price');return}
 const v=i=>+g('c_'+i).value,o={cap:v('cap'),size:v('size'),maxp:v('maxp'),sl:v('sl')/100,tp:v('tp')/100,fee:v('fee')/100,slip:v('slip')/100,pen:v('pen')/100};
 const r=auto(T,o),b=auto(T,{...o,sl:0,tp:0}),pc=x=>(x*100).toFixed(1)+'%',cl=x=>x>=0?'pos':'neg',pl=r.fin-o.cap;
-const S=[['Final na account','$'+r.fin.toFixed(0),''],['Return',pc(r.ret),cl(r.ret)],['Kita/lugi (pekeng $)',(pl>=0?'+':'-')+'$'+Math.abs(pl).toFixed(0),cl(pl)],['Sarado na trades',r.closed,''],['Win rate',r.closed?pc(r.wins/r.closed):'-',''],['Max drawdown',pc(r.dd),'neg'],['Bukas pa',r.open,''],['Return kung walang SL/TP',pc(b.ret),cl(b.ret)]];
+const S=[['Final account','$'+r.fin.toFixed(0),''],['Return',pc(r.ret),cl(r.ret)],['Profit/loss (fake $)',(pl>=0?'+':'-')+'$'+Math.abs(pl).toFixed(0),cl(pl)],['Closed trades',r.closed,''],['Win rate',r.closed?pc(r.wins/r.closed):'-',''],['Max drawdown',pc(r.dd),'neg'],['Still open',r.open,''],['Return without SL/TP',pc(b.ret),cl(b.ret)]];
 g('c_stats').innerHTML=S.map(x=>`<div class="s"><span>${x[0]}</span><b class="${x[2]}">${x[1]}</b></div>`).join('');
-let t=r.ret>0?'Profitable sa paper sa data na ito, pero subukan sa ibang wallet at panahon bago magtiwala.':'Hindi profitable ang auto-buy sa mga patakarang ito sa data na ito.';
-if(r.closed<30)t+=' Kaunti ang sarado na trades ('+r.closed+'), kaya posibleng swerte o malas lang.';
+let t=r.ret>0?'Profitable on paper on this data, but test other wallets and time periods before trusting it.':'Auto-buy is not profitable with these rules on this data.';
+if(r.closed<30)t+=' Few closed trades ('+r.closed+'), so it may just be luck or bad luck.';
 g('c_v').textContent=t;
-g('c_t').innerHTML='<tr><th>Token</th><th>Aksyon</th><th>Presyo</th><th>P/L ($)</th></tr>'+r.log.slice(0,60).map(l=>`<tr><td>${l[0]}</td><td>${l[1]}</td><td>${l[2]}</td><td class="${l[3]==null?'':cl(l[3])}">${l[3]==null?'-':(l[3]>=0?'+':'')+l[3].toFixed(2)}</td></tr>`).join('');
+g('c_t').innerHTML='<tr><th>Token</th><th>Action</th><th>Price</th><th>P/L ($)</th></tr>'+r.log.slice(0,60).map(l=>`<tr><td>${l[0]}</td><td>${l[1]}</td><td>${l[2]}</td><td class="${l[3]==null?'':cl(l[3])}">${l[3]==null?'-':(l[3]>=0?'+':'')+l[3].toFixed(2)}</td></tr>`).join('');
 ['c_out','c_cc','c_lg'].forEach(i=>g(i).style.display='block');draw(r.eq,o.cap)}
 g('c_run').onclick=run;
 g('c_from').onclick=()=>{g('c_csv').value=g('b_csv').value;run()};
 g('c_file').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{g('c_csv').value=rd.result;run()};rd.readAsText(f)}})();
 (function(){const g=i=>document.getElementById(i);
 const pc=x=>(x*100).toFixed(1)+'%',cl=x=>x>=0?'pos':'neg',f2=x=>x.toFixed(2);
-let S={ev:[],i:0,cash:0,cap:1,pos:{},lt:{},log:[],closed:0,wins:0,tm:null,names:[]};
+let S={ev:[],i:0,cash:0,cap:1,pos:{},lt:{},log:[],closed:0,wins:0,skip:0,small:0,tm:null,names:[]};
 const msg=t=>g('p_msg').textContent=t;
-const R=()=>({size:+g('p_size').value,maxp:+g('p_maxp').value,sl:+g('p_sl').value/100,tp:+g('p_tp').value/100,fee:+g('p_fee').value/100,slip:+g('p_slip').value/100,pen:+g('p_pen').value/100});
-function pr(t,w){const o=[];t.split(/\r?\n/).forEach(l=>{const c=l.split(/[,;\t]/).map(x=>x.trim());if(c.length<4)return;const p=parseFloat(c[3]),x=c[2].toLowerCase()[0];if(isFinite(p)&&p>0&&(x==='b'||x==='s'))o.push({w,k:c[1],b:x==='b',p,ts:c[0],n:o.length})});return o}
+const R=()=>({size:+g('p_size').value,maxp:+g('p_maxp').value,sl:+g('p_sl').value/100,tp:+g('p_tp').value/100,fee:+g('p_fee').value/100,slip:+g('p_slip').value/100,pen:+g('p_pen').value/100,big:+g('p_big').value||0});
+function pr(t,w){const o=[];t.split(/\r?\n/).forEach(l=>{const c=l.split(/[,;\t]/).map(x=>x.trim());if(c.length<4)return;const p=parseFloat(c[3]),x=c[2].toLowerCase()[0];if(isFinite(p)&&p>0&&(x==='b'||x==='s'))o.push({w,k:c[1],b:x==='b',p,u:c.length>4&&isFinite(parseFloat(c[4]))?parseFloat(c[4]):null,ts:c[0],n:o.length})});return o}
 function merge(L){let all=[];L.forEach(l=>all=all.concat(l));const tv=e=>e.ts!==''&&isFinite(Number(e.ts))?Number(e.ts):Date.parse(e.ts);const ok=all.length&&all.every(e=>isFinite(tv(e)));
 return all.map((e,j)=>({e,j})).sort((a,b)=>(ok?tv(a.e)-tv(b.e):a.e.n-b.e.n)||a.j-b.j).map(x=>x.e)}
 function pause(){clearInterval(S.tm);S.tm=null}
-function reset(){pause();const c=+g('p_cap').value||1000;S.i=0;S.cash=S.cap=c;S.pos={};S.lt={};S.log=[];S.closed=S.wins=0;
-g('p_wl').textContent=S.names.length?'Wallets: '+S.names.join(', ')+' ('+S.ev.length+' trades)':'Wala pang data.';msg('');draw()}
+function reset(){pause();const c=+g('p_cap').value||1000;S.i=0;S.cash=S.cap=c;S.pos={};S.lt={};S.log=[];S.closed=S.wins=S.skip=S.small=0;
+g('p_wl').textContent=S.names.length?'Wallets: '+S.names.join(', ')+' ('+S.ev.length+' trades)':'No data yet.';msg('');draw()}
 function load(src){S.names=src.map(x=>x[0]);S.ev=merge(src.map(x=>pr(x[1],x[0])));reset()}
 const demo=()=>load([['Wallet A (demo)',g('b_csv').value]]);
 function eq(){const o=R();let v=S.cash;for(const k in S.pos){const q=S.pos[k];v+=q.u*S.lt[q.k]*(1-o.slip-o.pen)*(1-o.fee)}return v}
-function done(){const r=eq()/S.cap-1;msg('Tapos ang replay. Return: '+pc(r)+', sarado na trades: '+S.closed+(S.closed<30?'. Kaunti ang trades, kaya posibleng swerte o malas lang.':'.')+(r<=0?' Hindi profitable ang auto copy sa data na ito.':' Profitable sa paper; subukan sa ibang wallet at panahon bago magtiwala.'))}
+function done(){const r=eq()/S.cap-1;msg('Replay finished. Return: '+pc(r)+', closed trades: '+S.closed+', not big buys: '+S.small+', full/short on cash: '+S.skip+(S.closed<30?'. Few trades, so it may just be luck or bad luck.':'.')+(r<=0?' Auto copy is not profitable on this data.':' Profitable on paper; test other wallets and time periods before trusting it.'))}
 function step(){if(S.i>=S.ev.length){pause();done();return}
 const t=S.ev[S.i++],o=R(),key=t.w+'|'+t.k,q=S.pos[key];S.lt[t.k]=t.p;
 if(q){const px=t.p*(1-o.slip-o.pen),chg=px/q.e-1;let why=null;
 if(!t.b)why='wallet sell';else if(o.sl&&chg<=-o.sl)why='stop loss';else if(o.tp&&chg>=o.tp)why='take profit';
 if(why){const got=q.u*px*(1-o.fee),pl=got-q.cost;S.cash+=got;S.closed++;if(pl>0)S.wins++;delete S.pos[key];S.log.unshift([t.w,t.k,'SELL ('+why+')',t.p,pl])}}
-else if(t.b&&Object.keys(S.pos).length<o.maxp&&S.cash>=o.size){const px=t.p*(1+o.slip+o.pen);S.pos[key]={w:t.w,k:t.k,u:o.size*(1-o.fee)/px,cost:o.size,e:px};S.cash-=o.size;S.log.unshift([t.w,t.k,'BUY (kopya)',t.p,null])}
+else if(t.b&&o.big&&t.u!=null&&t.u<o.big)S.small++;else if(t.b&&Object.keys(S.pos).length<o.maxp&&S.cash>=o.size){const px=t.p*(1+o.slip+o.pen);S.pos[key]={w:t.w,k:t.k,u:o.size*(1-o.fee)/px,cost:o.size,e:px};S.cash-=o.size;S.log.unshift([t.w,t.k,'BUY (copy)',t.p,null])}else if(t.b)S.skip++;
 S.log=S.log.slice(0,200);draw();if(S.i>=S.ev.length){pause();done()}}
 function draw(){const e=eq(),pl=e-S.cap,o=R();g('p_prog').textContent='Trade '+S.i+' / '+S.ev.length;
-g('p_stats').innerHTML=[['Cash','$'+f2(S.cash),''],['Halaga ng account','$'+f2(e),''],['Kita/lugi',(pl>=0?'+':'-')+'$'+f2(Math.abs(pl))+' ('+pc(pl/S.cap)+')',cl(pl)],['Sarado na trades',S.closed+' ('+S.wins+' panalo)',''],['Bukas pa',Object.keys(S.pos).length,'']].map(x=>`<div class="s"><span>${x[0]}</span><b class="${x[2]}">${x[1]}</b></div>`).join('');
+g('p_stats').innerHTML=[['Cash','$'+f2(S.cash),''],['Account value','$'+f2(e),''],['Profit/loss',(pl>=0?'+':'-')+'$'+f2(Math.abs(pl))+' ('+pc(pl/S.cap)+')',cl(pl)],['Closed trades',S.closed+' ('+S.wins+' wins)',''],['Still open',Object.keys(S.pos).length,''],['Not big buy (skipped)',S.small,''],['Skipped (full/short on cash)',S.skip,'']].map(x=>`<div class="s"><span>${x[0]}</span><b class="${x[2]}">${x[1]}</b></div>`).join('');
 const ks=Object.keys(S.pos);
-g('p_pos').innerHTML='<tr><th>Wallet</th><th>Token</th><th>Gastos</th><th>Halaga ngayon</th><th>P/L</th></tr>'+(ks.map(k=>{const q=S.pos[k],v=q.u*S.lt[q.k]*(1-o.slip-o.pen)*(1-o.fee),r=v/q.cost-1;return `<tr><td>${q.w}</td><td>${q.k}</td><td>$${f2(q.cost)}</td><td>$${f2(v)}</td><td class="${cl(r)}">${pc(r)}</td></tr>`}).join('')||'<tr><td colspan="5">Wala pang hawak.</td></tr>');
-g('p_log').innerHTML='<tr><th>Wallet</th><th>Token</th><th>Aksyon</th><th>Presyo</th><th>P/L ($)</th></tr>'+(S.log.slice(0,25).map(l=>`<tr><td>${l[0]}</td><td>${l[1]}</td><td>${l[2]}</td><td>${l[3]}</td><td class="${l[4]==null?'':cl(l[4])}">${l[4]==null?'-':(l[4]>=0?'+':'-')+f2(Math.abs(l[4]))}</td></tr>`).join('')||'<tr><td colspan="5">Wala pa.</td></tr>')}
-function start(){if(!S.ev.length)demo();if(S.i>=S.ev.length)reset();if(S.tm)return;S.tm=setInterval(step,1000/(+g('p_rate').value||2));msg('Tumatakbo ang auto copy...')}
-g('p_start').onclick=start;g('p_pause').onclick=()=>{pause();msg('Naka-pause.')};g('p_reset').onclick=reset;
+g('p_pos').innerHTML='<tr><th>Wallet</th><th>Token</th><th>Cost</th><th>Value now</th><th>P/L</th></tr>'+(ks.map(k=>{const q=S.pos[k],v=q.u*S.lt[q.k]*(1-o.slip-o.pen)*(1-o.fee),r=v/q.cost-1;return `<tr><td>${q.w}</td><td>${q.k}</td><td>$${f2(q.cost)}</td><td>$${f2(v)}</td><td class="${cl(r)}">${pc(r)}</td></tr>`}).join('')||'<tr><td colspan="5">Nothing held yet.</td></tr>');
+g('p_log').innerHTML='<tr><th>Wallet</th><th>Token</th><th>Action</th><th>Price</th><th>P/L ($)</th></tr>'+(S.log.slice(0,25).map(l=>`<tr><td>${l[0]}</td><td>${l[1]}</td><td>${l[2]}</td><td>${l[3]}</td><td class="${l[4]==null?'':cl(l[4])}">${l[4]==null?'-':(l[4]>=0?'+':'-')+f2(Math.abs(l[4]))}</td></tr>`).join('')||'<tr><td colspan="5">None yet.</td></tr>')}
+function start(){if(!S.ev.length)demo();if(S.i>=S.ev.length)reset();if(S.tm)return;S.tm=setInterval(step,1000/(+g('p_rate').value||2));msg('Auto copy is running...')}
+g('p_start').onclick=start;g('p_pause').onclick=()=>{pause();msg('Paused.')};g('p_reset').onclick=reset;
 g('p_rate').onchange=()=>{if(S.tm){pause();start()}};
 g('p_use').onclick=demo;
 g('p_files').onchange=async e=>{const r=[];for(const f of e.target.files)r.push([f.name.replace(/\.[^.]+$/,''),await f.text()]);if(r.length)load(r)};
 demo()})();
 (function(){const g=i=>document.getElementById(i),sl=ms=>new Promise(r=>setTimeout(r,ms));
-const FL={time:['timestamp','time','createdAt','blockTime','date'],token:['tokenSymbol','symbol','tokenAddress','mint','token'],side:['side','type','action','direction'],price:['priceUsd','price','tokenPrice'],usd:['usdValue','valueUsd','amountUsd','usd','volumeUsd']};
+const BASE='https://api.fomoapi.io',SK='fomoapi_io_key';
+const ck=v=>String(v||'').replace(/authorization:?/ig,'').replace(/bearer/ig,'').replace(/["'\s]/g,'');
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const pick=(d,ks)=>{for(const k of ks)if(d&&d[k]!=null&&d[k]!=='')return d[k];return null};
-function fl(o){if(Array.isArray(o))return o;if(o&&typeof o==='object')for(const v of Object.values(o)){const f=fl(v);if(f&&f.length&&typeof f[0]==='object')return f}return[]}
-try{const k=localStorage.getItem('fomo_key');if(k){g('f_key').value=k;g('f_rem').checked=true}}catch(e){}
-async function fg(path,key,params){const u=new URL('https://getfomoapi.fun'+path);for(const k in params||{})u.searchParams.set(k,params[k]);
-for(let i=0;i<3;i++){await sl(250);const r=await fetch(u,{headers:{'X-API-Key':key}});if(r.status===429){await sl((+r.headers.get('Retry-After')||2)*1000);continue}if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}throw new Error('Sobra ang request (429).')}
-const tv=x=>{const n=Number(x);return isFinite(n)?n:Date.parse(x)};
+function lst(o,keys){if(Array.isArray(o))return o;if(o&&typeof o==='object'){for(const k of keys||[])if(Array.isArray(o[k]))return o[k];
+for(const v of Object.values(o))if(Array.isArray(v)&&v.length&&typeof v[0]==='object')return v;
+for(const v of Object.values(o))if(v&&typeof v==='object'&&!Array.isArray(v)){const f=lst(v);if(f.length)return f}}return[]}
+const num=x=>{const n=parseFloat(x);return isFinite(n)?n:0};
+const usd=x=>'$'+(x>=1e9?(x/1e9).toFixed(2)+'B':x>=1e6?(x/1e6).toFixed(2)+'M':x>=1e3?(x/1e3).toFixed(1)+'K':x.toFixed(0));
+const px=x=>!x?'-':x>=1?'$'+x.toFixed(2):x>=0.0001?'$'+x.toPrecision(3):'$'+x.toExponential(2);
+const ago=t=>{if(!t)return '-';const m=Math.max(0,(Date.now()-t)/60000);return m<60?Math.round(m)+'m':m<1440?Math.round(m/60)+'h':Math.round(m/1440)+'d'};
+const cl=x=>x>=0?'pos':'neg';
+try{const k=localStorage.getItem(SK);if(k)g('sc_key').value=k}catch(e){}g('sc_rem').checked=true;
+function fail(m,fatal){const e=new Error(m);e.fatal=!!fatal;return e}
+const inFrame=()=>{try{return window.self!==window.top}catch(e){return true}};
+const netfail=e=>fail('Could not reach api.fomoapi.io ('+((e&&e.message)||'network error')+'). '+(inFrame()||location.protocol==='file:'?'This page seems to be running inside a preview (like the Claude preview) or from a local file, where requests to other sites can be blocked. Open the file in Chrome/Safari from your device, or host it (e.g. Vercel). ':'')+'If it still fails when opened normally, the API may not allow browser requests (CORS): use fomo_collect.py in the API Collector tab instead.',true);
+async function api(path,key,params){const u=new URL(BASE+path);for(const k in params||{})u.searchParams.set(k,params[k]);
+for(let i=0;i<5;i++){await sl(450);let r;try{r=await fetch(u,{headers:{authorization:'Bearer '+key}})}catch(e){throw netfail(e)}
+if(r.status===429){await sl(Math.max(+r.headers.get('Retry-After')||0,8)*1000);continue}
+if(r.status===401)throw fail('Invalid or missing API key (401). Copy it again from fomoapi.io/dashboard.',true);
+if(r.status===402)throw fail('Your key is out of credits (402). Check fomoapi.io/dashboard.',true);
+if(r.status===503&&i<2){await sl(2000);continue}
+if(!r.ok){let tx='';try{tx=(await r.text()).slice(0,200)}catch(e){}throw fail('HTTP '+r.status+' for '+path+(tx?': '+tx:''))}
+return r.json()}
+throw fail('Too many requests (429). Try again in a minute.',true)}
 function feed(id,files){const dt=new DataTransfer();files.forEach(f=>dt.items.add(f));const el=g(id);el.files=dt.files;el.dispatchEvent(new Event('change'))}
-g('f_go').onclick=async()=>{const key=g('f_key').value.trim(),st=g('f_st');if(!key){st.textContent='Ilagay muna ang API key.';return}
-try{if(g('f_rem').checked)localStorage.setItem('fomo_key',key);else localStorage.removeItem('fomo_key')}catch(e){}
-const n=+g('f_n').value||10,minb=+g('f_min').value||0;let raw='';g('f_go').disabled=true;
-try{st.textContent='Kinukuha ang leaderboard...';let bd=null;for(const w of [g('f_win').value,'7d','30d','all']){bd=await fg('/api/leaderboard/'+w,key,{limit:n});if(fl(bd).length)break;st.textContent='Walang laman ang '+w+'; sinusubukan ang iba...'}raw+='LEADERBOARD\n'+JSON.stringify(bd,null,1).slice(0,3000);
-const tr=fl(bd).slice(0,n);if(!tr.length)throw new Error('Tinanggap ng API ang key pero walang laman ang sagot sa lahat ng window. Posibleng hindi kasama sa plan mo ang leaderboard, o iba ang hugis ng data. Tingnan ang dashboard ng serbisyo at ang raw sa ibaba.');
-const files=[];let i=0;
-for(const t of tr){i++;let uid=pick(t,['id','userId','user_id']);const hd=pick(t,['handle','username','name']),handle=String(hd||uid);
-st.textContent='Trader '+i+'/'+tr.length+': '+handle;
-if(!uid&&hd){const pf=await fg('/api/users/'+encodeURIComponent(handle),key);uid=pick(pf.responseObject||pf,['id','userId','user_id'])}
-if(!uid)continue;
-const sw=await fg('/api/users/'+uid+'/swaps',key,{limit:50});if(i===1)raw+='\n\nSWAPS (unang trader)\n'+JSON.stringify(sw,null,1).slice(0,3000);
-const rows=[];for(const s of fl(sw)){const sd=String(pick(s,FL.side)||'').toLowerCase()[0],side=sd==='b'?'buy':sd==='s'?'sell':null,pr=parseFloat(pick(s,FL.price)),tk=pick(s,FL.token),ts=pick(s,FL.time),us=parseFloat(pick(s,FL.usd))||0;
-if(!side||!tk||ts==null||!(pr>0))continue;if(side==='buy'&&us<minb)continue;rows.push([ts,tk,side,pr])}
-rows.sort((a,b)=>tv(a[0])-tv(b[0]));
-if(rows.length)files.push(new File([rows.map(r=>r.join(',')).join('\n')],handle.replace(/[^\w.-]/g,'_')+'.csv',{type:'text/csv'}))}
-g('f_raw').value=raw;
-if(!files.length)throw new Error('Walang nabuong trades. Tingnan ang raw sa ibaba; ipakita sa akin ang hugis para maayos ang mga field.');
-feed('mf',files);feed('p_files',files);st.textContent='Tapos: '+files.length+' trader. Tingnan ang Radar (Hot Wallets) at ang Auto Copy tab.'}
-catch(e){g('f_raw').value=raw;st.textContent=(e instanceof TypeError?'Hindi naabot ang API (posibleng hinarang ng browser dahil sa CORS, walang internet, o nasa preview ito). Gamitin ang script sa ibaba. ':'')+e.message}
-g('f_go').disabled=false}})();
+function showTrend(L){g('sc_tr').innerHTML='<tr><th>#</th><th>Token</th><th>Price</th><th>24h</th><th>Market cap</th><th>Holders</th></tr>'+
+(L.map((t,i)=>{const k=t.token||{},c=num(t.change24h);return `<tr><td>${esc(t.rank||i+1)}</td><td>${esc(k.symbol||k.name||'?')}<small style="display:block;color:var(--mu)">${esc(String(k.address||'').slice(0,8))}${t.network?' · '+esc(t.network):''}</small></td><td>${px(num(t.priceUsd))}</td><td class="${cl(c)}">${t.change24h==null?'-':(c>=0?'+':'')+c.toFixed(1)+'%'}</td><td>${t.marketCapUsd?usd(num(t.marketCapUsd)):'-'}</td><td>${t.holders==null?'-':esc(t.holders)}</td></tr>`}).join('')||'<tr><td colspan="6">No trending tokens returned (the board may not be available yet).</td></tr>')}
+function showHot(H){const L=Object.values(H).sort((a,b)=>b.tr.size-a.tr.size||b.last-a.last).slice(0,25);
+g('sc_hot').innerHTML='<tr><th>Token</th><th>Traders</th><th>Cost</th><th>Last entry</th><th>Price</th><th>Status</th><th>P/L</th></tr>'+
+(L.map(h=>`<tr><td>${esc(h.sym)}<small style="display:block;color:var(--mu)">${esc(h.adr.slice(0,8))}</small></td><td>${h.tr.size}</td><td>${usd(h.cost)}</td><td>${ago(h.last)}</td><td>${px(h.px)}</td><td>${h.open} open / ${h.n-h.open} closed</td><td class="${cl(h.pnl)}">${(h.pnl>=0?'+':'-')+usd(Math.abs(h.pnl))}</td></tr>`).join('')||'<tr><td colspan="7">No tokens found in the positions of the top traders.</td></tr>')}
+g('go').onclick=async()=>{const key=ck(g('sc_key').value),st=g('sc_st');g('sc_key').value=key;
+if(!key){st.textContent='Enter your API key from fomoapi.io/dashboard first.';return}
+try{if(g('sc_rem').checked)localStorage.setItem(SK,key);else localStorage.removeItem(SK)}catch(e){}
+const n=Math.min(Math.max(+g('sc_n').value||8,1),30),minc=+g('sc_min').value||0;let raw='';
+g('go').disabled=true;g('sc_out').style.display='none';
+try{
+try{st.textContent='Checking your key...';const me=await api('/v2/me',key);raw+='ME\n'+JSON.stringify(me,null,1).slice(0,800)+'\n\n'}catch(e){if(e.fatal)throw e}
+let bd=null,tr=[];
+for(const w of [...new Set([g('sc_win').value,'7d','30d','all'])]){st.textContent='Fetching leaderboard ('+w+')...';bd=await api('/v2/leaderboard/'+w,key,{limit:n});tr=lst(bd,['traders']).slice(0,n);if(tr.length)break}
+raw+='LEADERBOARD\n'+JSON.stringify(bd,null,1).slice(0,3000);
+if(!tr.length)throw fail('The key was accepted but the leaderboard is empty. Check the raw response in the API tab.');
+let trend=[];
+try{st.textContent='Fetching trending tokens...';const tb=await api('/v2/leaderboard/tokens/trending',key,{limit:15});raw+='\n\nTRENDING\n'+JSON.stringify(tb,null,1).slice(0,2000);trend=(tb&&tb.available===false)?[]:lst(tb,['tokens'])}catch(e){if(e.fatal)throw e}
+showTrend(trend);
+const files=[],hot={},trs=new Set();window.FOMO_TR=trs;let i=0,got=0;
+for(const t of tr){i++;const uid=pick(t,['userId','id','user_id']),handle=String(pick(t,['handle','username','displayName'])||uid);
+trs.add(handle.toLowerCase());if(uid)trs.add(String(uid));st.textContent='Trader '+i+'/'+tr.length+': '+handle;
+let pd;try{pd=await api('/v2/users/'+encodeURIComponent(uid||handle)+'/positions',key)}catch(e){if(e.fatal)throw e;continue}
+if(i===1)raw+='\n\nPOSITIONS (unang trader)\n'+JSON.stringify(pd,null,1).slice(0,3000);
+const rows=[];
+for(const p of lst(pd,['positions','trades'])){const k=p.token||{},sym=String(k.symbol||p.symbol||'').trim(),adr=String(k.address||p.address||''),nm=sym||adr.slice(0,6);if(!nm)continue;
+const cost=num(p.costBasisUsd);if(cost<minc)continue;
+const open=String(p.status).toLowerCase()!=='closed',en=num(p.avgEntryPrice),ex=num(p.avgExitPrice),id=adr||nm;
+const h=hot[id]||(hot[id]={sym:nm,adr,tr:new Set(),cost:0,last:0,px:0,open:0,n:0,pnl:0});
+h.tr.add(handle);h.cost+=cost;h.n++;if(open)h.open++;h.pnl+=num(p.realizedPnlUsd)+num(p.unrealizedPnlUsd);
+const t0=Date.parse(p.createdAt);if(t0>h.last)h.last=t0;if(num(p.priceUsd)>0)h.px=num(p.priceUsd);got++;
+if(!open&&en>0&&ex>0&&p.createdAt&&p.closedAt){const key2=adr?nm+'_'+adr.slice(0,4):nm;rows.push([p.createdAt,key2,'buy',en,cost],[p.closedAt,key2,'sell',ex,cost])}}
+rows.sort((a,b)=>Date.parse(a[0])-Date.parse(b[0]));
+if(rows.length>=4)files.push(new File([rows.map(r=>r.join(',')).join('\n')],handle.replace(/[^\w.-]/g,'_')+'.csv',{type:'text/csv'}))}
+g('f_raw').value=raw;showHot(hot);g('sc_out').style.display='block';
+g('sc_d').textContent='LIVE DATA';g('sc_d').style.color='var(--ac)';g('sc_d').style.borderColor='var(--ac)';
+if(files.length){feed('mf',files);feed('p_files',files)}
+if(files.length&&g('sc_auto').checked){for(let k=0;k<40&&/demo/.test(g('p_wl').textContent);k++)await sl(100);g('p_rate').value='20';document.querySelectorAll('.nv')[5].click();g('p_start').click()}
+st.textContent='Done: '+tr.length+' traders, '+Object.keys(hot).length+' tokens ('+got+' positions).'+(files.length?' Loaded '+files.length+' traders into Hot Wallets and Auto Copy'+(g('sc_auto').checked?' and auto copy is running.':'.'):' Not enough closed trades for Hot Wallets.')}
+catch(e){g('f_raw').value=raw;st.textContent=(e instanceof TypeError?'Could not reach api.fomoapi.io (no internet, blocked by the browser, or this is a preview without network). Open the file in your own browser or host it. ':'')+e.message}
+g('go').disabled=false};
+window.ckey=ck;
+const stt=t=>{g('sc_st').textContent=t};
+g('sc_save').onclick=()=>{const v=ck(g('sc_key').value);g('sc_key').value=v;if(!v){stt('Paste your API key in the box first, then press Save key.');return}
+try{localStorage.setItem(SK,v);g('sc_rem').checked=true;stt('Key saved on this browser. Next time you open this page it loads by itself; you only press Start scan.')}catch(e){stt('Could not save: this browser or preview blocks storage. Open the file directly in Chrome/Safari.')}};
+g('sc_clear').onclick=()=>{try{localStorage.removeItem(SK)}catch(e){}g('sc_key').value='';stt('Saved key removed from this browser.')};
+let ls='';const auto=force=>{const v=ck(g('sc_key').value);g('sc_key').value=v;if(v.length>=16&&!g('go').disabled&&(force||v!==ls)){ls=v;g('go').click()}};
+g('sc_key').addEventListener('paste',()=>setTimeout(()=>auto(true),60));
+g('sc_key').addEventListener('change',()=>auto(false));
+g('sc_key').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();auto(true)}})})();
+
+(function(){const g=i=>document.getElementById(i),sl=ms=>new Promise(r=>setTimeout(r,ms));
+const BASE='https://api.fomoapi.io',LS='fomo_live_v1';
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num=x=>{const n=parseFloat(x);return isFinite(n)?n:0},f2=x=>x.toFixed(2),pc=x=>(x*100).toFixed(1)+'%',cl=x=>x>=0?'pos':'neg';
+const px=x=>!x?'-':x>=1?'$'+x.toFixed(2):x>=0.0001?'$'+x.toPrecision(3):'$'+x.toExponential(2);
+function lst(o){if(Array.isArray(o))return o;if(o&&typeof o==='object'){for(const k of ['positions','trades'])if(Array.isArray(o[k]))return o[k];for(const v of Object.values(o))if(Array.isArray(v)&&v.length&&typeof v[0]==='object')return v}return[]}
+const fresh=()=>({ws:null,run:false,t0:0,start:0,last:0,down:0,delay:0,cash:0,cap:0,pos:{},pend:{},seen:new Set(),log:[],cl:[],closed:0,wins:0,small:0,skip:0,old:0,seenN:0,credits:null,calls:0,tries:0,tm:null,key:'',eqh:[],peak:0,maxdd:0,cfg:null,out:false});
+const KEEP=['run','start','last','down','cash','cap','pos','log','cl','closed','wins','small','skip','old','seenN','credits','calls','eqh','peak','maxdd','cfg'];
+let L=fresh(),wl=null;
+function save(){try{const o={};KEEP.forEach(k=>o[k]=L[k]);o.seen=[...L.seen].slice(-400);localStorage.setItem(LS,JSON.stringify(o))}catch(e){}}
+function restore(){try{const j=localStorage.getItem(LS);if(!j)return null;const o=JSON.parse(j);L=Object.assign(fresh(),o,{seen:new Set(o.seen||[]),ws:null,tm:null,pend:{},key:'',run:false});for(const k in L.pos)delete L.pos[k].closing;return o}catch(e){return null}}
+const R=()=>({size:+g('p_size').value,maxp:+g('p_maxp').value,sl:+g('p_sl').value/100,tp:+g('p_tp').value/100,fee:+g('p_fee').value/100,slip:+g('p_slip').value/100,pen:+g('p_pen').value/100,big:+g('p_big').value||0});
+const msg=t=>g('l_msg').textContent=t;
+const mark=(q,o)=>q.u*q.last*(1-o.slip-o.pen)*(1-o.fee);
+function eq(){const o=R();let v=L.cash;for(const k in L.pos)v+=mark(L.pos[k],o);return v}
+function log(a,b,c,d,e){L.log.unshift([a,b,c,d,e]);L.log=L.log.slice(0,100)}
+function pushEq(e){const t=Date.now(),a=L.eqh,l=a[a.length-1];if(!l||t-l[0]>300000||Math.abs(l[1]-e)>0.005){a.push([t,e]);if(a.length>3000)L.eqh=a.filter((_,i)=>i%2===0)}
+if(e>L.peak)L.peak=e;if(L.peak>0)L.maxdd=Math.min(L.maxdd,e/L.peak-1)}
+function chart(){const c=g('l_cv');if(!c||!c.clientWidth||L.eqh.length<2){if(c)c.style.display='none';return}c.style.display='block';
+const x=c.getContext('2d'),W=c.width=c.clientWidth*2,H=c.height=360,pad=20,a=L.eqh.map(p=>p[1]),t0=L.eqh[0][0],t1=L.eqh[L.eqh.length-1][0]||t0+1,
+cs=getComputedStyle(document.documentElement),mn=Math.min(L.cap,...a),mx=Math.max(L.cap,...a),Y=v=>H-pad-(v-mn)/(mx-mn||1)*(H-2*pad);
+x.clearRect(0,0,W,H);x.strokeStyle=cs.getPropertyValue('--bd');x.lineWidth=1;x.beginPath();x.moveTo(0,Y(L.cap));x.lineTo(W,Y(L.cap));x.stroke();
+x.strokeStyle=cs.getPropertyValue('--ac').trim();x.lineWidth=3;x.beginPath();L.eqh.forEach((p,i)=>{const X=(p[0]-t0)/((t1-t0)||1)*W;i?x.lineTo(X,Y(p[1])):x.moveTo(X,Y(p[1]))});x.stroke()}
+function report(e){if(!L.cap){g('l_rep').innerHTML='';return}
+const o=R(),cfg=L.cfg||{},days=L.start?(Date.now()-L.start)/864e5:0,pl=e-L.cap,ret=pl/L.cap,n=L.cl.length;
+let gw=0,gl=0,best=0;for(const c of L.cl){if(c[4]>0){gw+=c[4];best=Math.max(best,c[4])}else gl+=-c[4]}
+const pf=gl?(gw/gl).toFixed(2):(gw?'∞':'-'),open=Object.keys(L.pos).length;let un=0;for(const k in L.pos){const q=L.pos[k];un+=mark(q,o)-q.cost}
+const nb=(pl-best)/L.cap,wr=n?L.cl.filter(c=>c[4]>0).length/n:0;
+const S=[['Running for',days.toFixed(1)+' days',''],['Return',pc(ret),cl(ret)],['Max drawdown',pc(L.maxdd),'neg'],['Closed trades',n+' ('+pc(wr)+' wins)',''],['Profit factor',pf,''],['Return without the biggest win',n?pc(nb):'-',n?cl(nb):''],['Still open (unrealized)',open+' ('+(un>=0?'+':'-')+'$'+f2(Math.abs(un))+')',cl(un)],['API calls (estimated credits)',L.calls+' (~'+(L.calls*250).toLocaleString('en-US')+')',''],['Time not listening',(L.down/36e5).toFixed(1)+' hours','']];
+let v;
+if(days<7||n<30)v='Not enough data yet: '+days.toFixed(1)+' days and '+n+' closed trades. At least 7 days and 30 trades are recommended before judging. It is too early to call it profitable.';
+else if(ret<=0)v='Not profitable in this simulation. Do not put in real money with these settings.';
+else if(nb<=0)v='The return is positive, but only because of the single biggest trade; without it, it is a loss. Probably just luck.';
+else v='Profitable on paper after fees, slippage and penalty. This is still not a guarantee: one week is a small sample, and with real money slippage is worse on shallow tokens. If you try it, start with an amount you can afford to lose.';
+if(open&&!(cfg.ref>0))v+=' Price refresh is off, so open positions are marked at their entry price and their value is not real.';
+if(L.down>36e5)v+=' The simulation was not listening for '+(L.down/36e5).toFixed(1)+' hours, so some big buys were not copied.';
+if(L.delay>0)v+=' The stream for your key is delayed, so entries are later than true live.';
+g('l_rep').innerHTML='<div class="stats" style="margin-top:10px">'+S.map(x=>`<div class="s"><span>${x[0]}</span><b class="${x[2]}">${x[1]}</b></div>`).join('')+'</div><div class="verdict">'+esc(v)+'</div>'}
+function draw(){const o=R(),e=eq(),pl=e-L.cap,ks=Object.keys(L.pos);if(L.cap)pushEq(e);
+g('l_stats').innerHTML=[['Cash','$'+f2(L.cash),''],['Account value','$'+f2(e),''],['Profit/loss',(pl>=0?'+':'-')+'$'+f2(Math.abs(pl))+' ('+pc(pl/(L.cap||1))+')',cl(pl)],['Closed trades',L.closed+' ('+L.wins+' wins)',''],['Still open',ks.length,''],['Buy/sell alerts seen',L.seenN,''],['Not big buy',L.small,''],['Skipped (full/cash/error)',L.skip,''],['Old alerts (not copied)',L.old,''],['Credits left',L.credits==null?'-':L.credits,'']].map(x=>`<div class="s"><span>${x[0]}</span><b class="${x[2]}">${x[1]}</b></div>`).join('');
+g('l_pos').innerHTML='<tr><th>Trader</th><th>Token</th><th>Cost</th><th>Value now</th><th>P/L</th></tr>'+(ks.map(k=>{const q=L.pos[k],v=mark(q,o),r=v/q.cost-1;return `<tr><td>${esc(q.tr)}</td><td>${esc(q.sym)}</td><td>$${f2(q.cost)}</td><td>$${f2(v)}</td><td class="${cl(r)}">${pc(r)}</td></tr>`}).join('')||'<tr><td colspan="5">Nothing held yet.</td></tr>');
+g('l_log').innerHTML='<tr><th>Trader</th><th>Token</th><th>Action</th><th>Price</th><th>P/L ($)</th></tr>'+(L.log.slice(0,25).map(l=>`<tr><td>${esc(l[0])}</td><td>${esc(l[1])}</td><td>${esc(l[2])}</td><td>${l[3]?px(l[3]):'-'}</td><td class="${l[4]==null?'':cl(l[4])}">${l[4]==null?'-':(l[4]>=0?'+':'-')+f2(Math.abs(l[4]))}</td></tr>`).join('')||'<tr><td colspan="5">None yet.</td></tr>');
+report(e);chart();save()}
+async function api(path,n){n=n||0;L.calls++;const r=await fetch(BASE+path,{headers:{authorization:'Bearer '+L.key}});const c=r.headers.get('x-credits-remaining');if(c!=null)L.credits=c;
+if(r.status===429&&n<3){await sl(8000);return api(path,n+1)}
+if(r.status===401)throw new Error('Invalid API key (401)');if(r.status===402){L.out=true;throw new Error('Out of credits (402)')}
+if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}
+function find(arr,tid,adr){const a=String(adr||'').toLowerCase();return arr.find(x=>tid&&x.tradeId===tid)||arr.find(x=>a&&String((x.token||{}).address||'').toLowerCase()===a)||null}
+async function look(m){const d=await api('/v2/users/'+encodeURIComponent(m.userId||m.trader)+'/positions');return find(lst(d),m.tradeId,m.tokenAddress)}
+function close(key,price,why){const o=R(),q=L.pos[key];if(!q)return;const got=q.u*price*(1-o.slip-o.pen)*(1-o.fee),pl=got-q.cost;L.cash+=got;L.closed++;if(pl>0)L.wins++;delete L.pos[key];L.cl.push([Date.now(),q.tr,q.sym,q.cost,pl]);if(L.cl.length>5000)L.cl.shift();log(q.tr,q.sym,'SELL ('+why+')',price,pl)}
+function sltp(key){const o=R(),q=L.pos[key];if(!q)return;const chg=q.last*(1-o.slip-o.pen)/q.e-1;if(o.sl&&chg<=-o.sl)close(key,q.last,'stop loss');else if(o.tp&&chg>=o.tp)close(key,q.last,'take profit')}
+const kof=m=>(m.userId||m.trader)+'|'+(m.tokenAddress||m.token);
+async function onBuy(m){const o=R(),key=kof(m),size=num(m.tradeUsd)||num(m.positionValueUsd)||num(m.usdValue);
+if(o.big&&size<o.big){L.small++;return}
+if(L.pos[key]||L.pend[key]){L.skip++;return}
+if(Object.keys(L.pos).length+Object.keys(L.pend).length>=o.maxp||L.cash<o.size){L.skip++;log(m.trader,m.token,'SKIP (full / short on cash)',0,null);return}
+L.pend[key]=1;L.cash-=o.size;
+try{const p=await look(m),price=p&&(num(p.priceUsd)||num(p.avgEntryPrice));if(!price)throw new Error('no price');
+const e=price*(1+o.slip+o.pen);L.pos[key]={key,tr:m.trader,sym:m.token||String(m.tokenAddress).slice(0,6),adr:m.tokenAddress,tid:m.tradeId,uid:m.userId,u:o.size*(1-o.fee)/e,cost:o.size,e,last:price};
+log(m.trader,L.pos[key].sym,'BUY (copy, wallet bought $'+Math.round(size)+')',price,null)}
+catch(err){L.cash+=o.size;L.skip++;log(m.trader,m.token,'SKIP ('+err.message+')',0,null)}
+finally{delete L.pend[key]}}
+async function onSell(m){const key=kof(m),q=L.pos[key];if(!q||q.closing)return;q.closing=1;
+try{const p=await look(m);let price=0;if(p)price=String(p.status).toLowerCase()==='closed'?(num(p.avgExitPrice)||num(p.priceUsd)):num(p.priceUsd);
+if(price>0){q.last=price;close(key,price,'wallet sell')}else close(key,q.last,'wallet sell, stale price')}
+catch(e){close(key,q.last,'wallet sell, stale price')}}
+async function refresh(){const by={};for(const q of Object.values(L.pos))(by[q.uid||q.tr]=by[q.uid||q.tr]||[]).push(q);
+for(const u in by){if(L.out)break;try{const arr=lst(await api('/v2/users/'+encodeURIComponent(u)+'/positions'));
+for(const q of by[u]){const p=find(arr,q.tid,q.adr);if(!p)continue;
+if(String(p.status).toLowerCase()==='closed'){const x=num(p.avgExitPrice)||num(p.priceUsd);if(x>0)q.last=x;close(q.key,q.last,'wallet sell (seen on refresh)');continue}
+const pr=num(p.priceUsd);if(pr>0){q.last=pr;sltp(q.key)}}}catch(e){}}
+if(L.out&&L.run)stop('Your key is out of credits (402). The simulation stopped; open positions stay marked at the last price.');draw()}
+async function handle(m){const side=m.alertType;if(side!=='buy'&&side!=='sell')return;
+const id=m.eventId||[m.trader,m.token,m.ts,side].join('|');if(L.seen.has(id))return;L.seen.add(id);
+if(m.ts&&m.ts<L.t0-30000-L.delay*1000){L.old++;draw();return}
+if(g('l_only').checked&&window.FOMO_TR&&!(window.FOMO_TR.has(String(m.userId))||window.FOMO_TR.has(String(m.trader).toLowerCase())))return;
+L.seenN++;if(side==='buy')await onBuy(m);else await onSell(m);
+if(L.out&&L.run)stop('Your key is out of credits (402). The simulation stopped; open positions stay marked at the last price.');draw()}
+function connect(){const ws=new WebSocket('wss://api.fomoapi.io/ws/alerts?key='+encodeURIComponent(L.key));L.ws=ws;
+ws.onopen=()=>{L.tries=0;msg('Connected. Waiting for a new big buy...')};
+ws.onmessage=e=>{let m;try{m=JSON.parse(e.data)}catch(x){return}
+if(m.type==='welcome'){L.delay=+m.delaySeconds||0;if(L.delay>0)msg('Connected, but the stream for your key is delayed by '+L.delay+'s (free key after 7 days). It is no longer "live".');return}
+if(m.type==='alert')handle(m)};
+ws.onclose=ev=>{if(!L.run||L.ws!==ws)return;if(ev.code===1008){stop('Closed by server: '+(ev.reason||'key not allowed'));return}
+const w=Math.min(30,2*++L.tries);msg('Connection lost. Retrying in '+w+' seconds...');setTimeout(()=>{if(L.run)connect()},w*1000)};
+ws.onerror=()=>{}}
+async function wake(){try{if(typeof navigator!=='undefined'&&navigator.wakeLock&&L.run&&document.visibilityState==='visible')wl=await navigator.wakeLock.request('screen')}catch(e){}}
+function stop(t){L.run=false;L.last=Date.now();clearInterval(L.tm);const w=L.ws;L.ws=null;try{w&&w.close()}catch(e){}try{wl&&wl.release()}catch(e){}g('l_start').disabled=false;g('l_resume').disabled=false;msg(t||'Stopped. Open positions and log are still visible. Press Resume to continue.');draw()}
+function go(resume){const key=window.ckey(g('sc_key').value);
+if(!key){msg('Paste your API key in the box at the top first.');return}
+if(g('l_only').checked&&!(window.FOMO_TR&&window.FOMO_TR.size)){msg('No trader list yet. Run a scan in the Radar tab first, or untick "Only traders from the scan".');return}
+if(resume){if(!L.cap){msg('No saved simulation. Press Start.');return}L.down+=Math.max(0,Date.now()-(L.last||Date.now()));L.out=false}
+else{if(L.cap&&!confirm('This will delete the saved simulation and start over. Are you sure?'))return;
+const cap=+g('p_cap').value||1000;L=fresh();L.cap=L.cash=L.peak=cap;L.start=Date.now();L.cfg=Object.assign(R(),{ref:+g('l_ref').value})}
+L.key=key;L.run=true;L.t0=Date.now();L.last=Date.now();
+const r=+g('l_ref').value;if(r>0)L.tm=setInterval(refresh,r*1000);
+g('l_start').disabled=true;g('l_resume').disabled=true;msg('Connecting...');draw();connect();wake()}
+g('l_start').onclick=()=>{if(!L.run)go(false)};
+g('l_resume').onclick=()=>{if(!L.run)go(true)};
+g('l_stop').onclick=()=>{if(L.run)stop()};
+g('l_mark').onclick=async()=>{const k=window.ckey(g('sc_key').value);if(!k){msg('Enter your API key first.');return}if(!L.key)L.key=k;msg('Updating prices of open positions...');await refresh();msg(L.run?'Update finished. Still running.':'Update finished.')};
+g('l_dl').onclick=()=>{const rows=['time,trader,token,cost_usd,pl_usd'].concat(L.cl.map(c=>[new Date(c[0]).toISOString(),String(c[1]).replace(/,/g,' '),String(c[2]).replace(/,/g,' '),c[3].toFixed(2),c[4].toFixed(2)].join(',')));
+const b=new Blob([rows.join('\n')],{type:'text/csv'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='live_copy_log.csv';a.click()};
+setInterval(()=>{if(L.run){L.last=Date.now();save()}},30000);
+if(typeof window.addEventListener==='function')window.addEventListener('beforeunload',()=>{if(L.run)L.last=Date.now();save()});
+if(typeof document.addEventListener==='function')document.addEventListener('visibilitychange',()=>{if(L.run)wake()});
+window.__live={handle,get L(){return L}};
+const was=restore();draw();
+if(was&&L.cap){msg('There is a saved simulation ('+((Date.now()-L.start)/864e5).toFixed(1)+' days). '+(was.run?'It was running when the tab was closed.':'It is stopped.'));
+if(was.run){if(window.ckey(g('sc_key').value))go(true);else msg('There is a saved simulation that was running when the tab was closed. Enter the API key in the Radar tab and press Resume.')}}})();
+
 </script></body></html>
