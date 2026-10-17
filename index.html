@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="tl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trade Radar (Paper Only)</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--tx:#1c1c1a;--mu:#6b6b66;--bd:#dddcd6;--ac:#1f6feb;--gr:#1a7f37;--rd:#cf222e;--bh:#9a6700;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15161a;--card:#1e2026;--tx:#e8e8e4;--mu:#9a9a94;--bd:#33353d;--ac:#58a6ff;--gr:#3fb950;--rd:#f85149;--bh:#d29922}}
+:root[data-theme="dark"]{--bg:#15161a;--card:#1e2026;--tx:#e8e8e4;--mu:#9a9a94;--bd:#33353d;--ac:#58a6ff;--gr:#3fb950;--rd:#f85149;--bh:#d29922}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:0 0 4px}
+p.sub{color:var(--mu);margin:0 0 14px;font-size:13px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+label{display:block;font-size:12px;color:var(--mu);margin-bottom:3px}
+input,select,textarea{width:100%;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit}
+textarea{min-height:70px;font-family:ui-monospace,monospace;font-size:12px}
+button{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer}
+button.alt{background:transparent;color:var(--ac);border:1px solid var(--ac)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.s{background:var(--bg);border-radius:8px;padding:10px}
+.s b{display:block;font-size:18px}
+.s span{font-size:12px;color:var(--mu)}
+.pos{color:var(--gr)}.neg{color:var(--rd)}
+canvas{width:100%;height:260px;display:block}
+.leg{font-size:12px;color:var(--mu);margin-top:6px}
+.verdict{padding:10px 12px;border-radius:8px;border:1px solid var(--bd);margin-top:10px;font-size:14px}
+.warn{font-size:12px;color:var(--mu)}
+
+:root{--bg:#f7f7f5;--card:#fff;--tx:#1c1c1a;--mu:#6b6b66;--bd:#dddcd6;--ac:#1f6feb;--gr:#1a7f37;--rd:#cf222e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15161a;--card:#1e2026;--tx:#e8e8e4;--mu:#9a9a94;--bd:#33353d;--ac:#58a6ff;--gr:#3fb950;--rd:#f85149}}
+:root[data-theme="dark"]{--bg:#15161a;--card:#1e2026;--tx:#e8e8e4;--mu:#9a9a94;--bd:#33353d;--ac:#58a6ff;--gr:#3fb950;--rd:#f85149}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:860px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:0 0 4px}
+p.sub{color:var(--mu);margin:0 0 14px;font-size:13px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+label{display:block;font-size:12px;color:var(--mu);margin-bottom:3px}
+input,textarea{width:100%;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit}
+textarea{min-height:120px;font-family:ui-monospace,monospace;font-size:12px}
+button{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:10px 16px;font:inherit;font-weight:600;cursor:pointer}
+button.alt{background:transparent;color:var(--ac);border:1px solid var(--ac)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.s{background:var(--bg);border-radius:8px;padding:10px}
+.s b{display:block;font-size:18px}
+.s span{font-size:12px;color:var(--mu)}
+.pos{color:var(--gr)}.neg{color:var(--rd)}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--bd)}
+th{color:var(--mu);font-weight:500;font-size:12px}
+h2{font-size:15px;margin:0 0 8px}
+.verdict{padding:10px 12px;border-radius:8px;border:1px solid var(--bd);margin-top:10px;font-size:14px}
+.warn{font-size:12px;color:var(--mu)}
+
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tabs button{background:transparent;color:var(--tx);border:1px solid var(--bd)}
+.tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.sec{display:none}.sec.on{display:block}
+
+html:root:not(#z){--bg:#070b0a;--card:#0c1412;--tx:#e8f3ee;--mu:#7f958c;--bd:#1b2a25;--ac:#19e07a;--gr:#19e07a;--rd:#ff5c5c;--bh:#e0b341;color-scheme:dark}
+body{background:radial-gradient(1200px 600px at 70% -10%,#0c2a1c 0,transparent 60%),var(--bg)}
+button{color:#03130b}
+.app{display:grid;grid-template-columns:210px 1fr;min-height:100vh}
+aside{padding:16px 12px;border-right:1px solid var(--bd);display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px;margin-bottom:14px}
+i{font-style:normal;color:var(--ac)}
+.nv{background:transparent;color:var(--mu);text-align:left;display:flex;gap:10px;padding:11px 12px;border-radius:10px;font-weight:600}
+.nv.on{background:rgba(25,224,122,.14);color:var(--ac)}
+.side-note{margin-top:auto;border:1px solid var(--bd);border-radius:10px;padding:10px;font-size:12px}
+.side-note small{display:block;color:var(--mu)}
+.app main{max-width:1100px;margin:0;padding:16px 20px;width:100%}
+.top{display:flex;justify-content:flex-end;margin-bottom:12px}
+.pill{border:1px solid var(--ac);color:var(--ac);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:600}
+.card{background:linear-gradient(180deg,rgba(25,224,122,.05),transparent),var(--card)}
+.g2{display:grid;grid-template-columns:1.7fr 1fr;gap:14px;margin-bottom:14px}
+h1.big{font-size:40px;line-height:1.1;margin:0;letter-spacing:.5px}
+.hg{display:grid;grid-template-columns:minmax(140px,190px) 1fr;gap:16px;align-items:center;margin-top:12px}
+.rcs{display:grid;gap:10px}
+.rc{border:1px solid var(--bd);border-radius:10px;padding:10px;background:var(--bg)}
+.rc span{display:block;font-size:12px;color:var(--mu)}
+.rc b{font-size:20px}
+.radar{width:100%;max-width:360px;margin:0 auto;display:block}
+.sweep{transform-origin:150px 150px;animation:spin 5s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bl{animation:pl 2.4s ease-in-out infinite}
+@keyframes pl{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.sweep,.bl{animation:none}}
+.al{list-style:none;margin:0;padding:0}
+.al li{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd);font-size:14px}
+.al li:last-child{border:0}
+.al small{display:block;color:var(--mu)}
+.dot{width:9px;height:9px;border-radius:50%;margin-top:6px;flex:none}
+.cta{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid var(--ac);border-radius:12px;padding:14px 16px;background:linear-gradient(90deg,rgba(25,224,122,.12),transparent)}
+.cta span{color:var(--mu);font-size:13px}
+@media (max-width:860px){.app{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;border-right:0;border-bottom:1px solid var(--bd)}.brand{width:100%;margin-bottom:4px}.side-note{display:none}.g2,.hg{grid-template-columns:1fr}}
+
+.top{justify-content:space-between;gap:12px;align-items:center}
+.search{flex:1;max-width:420px;border-radius:999px;padding:9px 16px}
+.demo{font-size:10px;color:#e0b341;border:1px solid #e0b341;border-radius:6px;padding:1px 6px;margin-left:8px;vertical-align:middle;font-weight:600}
+.rcol{display:grid;gap:14px;align-content:start}
+.tr{display:grid;grid-template-columns:18px 34px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--bd)}
+.tr:last-child{border:0}
+.tr em{font-style:normal;color:var(--mu)}
+.tr small,.hc small{display:block;color:var(--mu);font-size:12px}
+.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff}
+.hot{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.hc{background:var(--bg);border:1px solid var(--bd);border-radius:12px;padding:0 0 10px;text-align:left;color:var(--tx);overflow:hidden;display:block}
+.hc b,.hc small,.hc strong{display:block;padding:0 10px}
+.hc b{margin-top:8px}
+.hv{height:90px;display:grid;place-items:center;font-size:36px;font-weight:800;color:#fff}
+.sub2{color:var(--mu);font-size:13px;margin:-4px 0 10px}
+.mini{padding:5px 12px;font-size:13px}.sellb{background:var(--rd);color:#fff}.row input{max-width:150px}
+</style></head><body><div class="app"><aside><div class="brand"><svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="#19e07a" stroke-width="2"><circle cx="15" cy="15" r="13"/><circle cx="15" cy="15" r="6" stroke-opacity=".6"/><path d="M15 15L25 7"/></svg><span>TRADE <i>RADAR</i></span></div>
+<button class="nv on">&#9678; Radar</button><button class="nv">&#128200; Backtester</button><button class="nv">&#128091; Copy-Trade</button><button class="nv">&#128268; API Collector</button><button class="nv">&#129302; Auto-Buy</button><button class="nv">&#128260; Auto Copy</button>
+<div class="side-note">Subukan. Suriin. Saka mag-risk.<small>Paper only. Hindi financial advice.</small></div></aside>
+<main><div class="top"><input id="q" class="search" placeholder="Hanapin ang wallet..." autocomplete="off"><span class="pill">PAPER ONLY &middot; walang totoong pera</span></div>
+<section class="sec on" id="s0"><div class="g2"><div class="card"><h1 class="big">TRADE <i>RADAR</i></h1>
+<p class="sub">Subukan muna sa papel. Alamin kung profitable pa rin ang strategy o kopya pagkatapos ng fees, slippage, at delay.</p>
+<div class="hg"><div class="rcs"><div class="rc"><span>Backtest return</span><b id="rc1">-</b></div><div class="rc"><span>Buy and hold</span><b id="rc2">-</b></div><div class="rc"><span>Wallet (ideal)</span><b id="rc3">-</b></div><div class="rc"><span>Kopya mo (realistic)</span><b id="rc4">-</b></div></div><svg class="radar" viewBox="0 0 300 300" role="img" aria-label="Radar"><defs><linearGradient id="sw" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#19e07a" stop-opacity="0"/><stop offset="1" stop-color="#19e07a" stop-opacity=".55"/></linearGradient></defs>
+<g fill="none" stroke="#19e07a" stroke-opacity=".35"><circle cx="150" cy="150" r="140" stroke-opacity=".9" stroke-width="2"/><circle cx="150" cy="150" r="105"/><circle cx="150" cy="150" r="70"/><circle cx="150" cy="150" r="35"/><path d="M150 10V290M10 150H290"/></g>
+<g class="sweep"><path d="M150 150L150 10A140 140 0 0 1 249 51Z" fill="url(#sw)"/><path d="M150 150L249 51" stroke="#19e07a" stroke-width="2"/></g>
+<g><circle cx="90" cy="80" r="15" fill="#19e07a" stroke="#070b0a" stroke-width="2"/><text x="90" y="80" text-anchor="middle" dy=".35em" font-size="13" font-weight="700" fill="#fff">W</text></g><g><circle cx="215" cy="105" r="15" fill="#4aa3ff" stroke="#070b0a" stroke-width="2"/><text x="215" y="105" text-anchor="middle" dy=".35em" font-size="13" font-weight="700" fill="#fff">S</text></g><g><circle cx="70" cy="170" r="15" fill="#b06bff" stroke="#070b0a" stroke-width="2"/><text x="70" y="170" text-anchor="middle" dy=".35em" font-size="13" font-weight="700" fill="#fff">D</text></g><g><circle cx="210" cy="200" r="15" fill="#ff5c5c" stroke="#070b0a" stroke-width="2"/><text x="210" y="200" text-anchor="middle" dy=".35em" font-size="13" font-weight="700" fill="#fff">L</text></g><g><circle cx="125" cy="225" r="15" fill="#e0b341" stroke="#070b0a" stroke-width="2"/><text x="125" y="225" text-anchor="middle" dy=".35em" font-size="13" font-weight="700" fill="#fff">M</text></g><g><circle cx="170" cy="60" r="15" fill="#19c7c7" stroke="#070b0a" stroke-width="2"/><text x="170" y="60" text-anchor="middle" dy=".35em" font-size="13" font-weight="700" fill="#fff">K</text></g></svg></div></div>
+<div class="rcol"><div class="card"><h2>Top Wallets <span class="demo" id="d1">DEMO</span></h2><div id="tt"></div></div>
+<div class="card"><h2>Recent Alerts <span class="demo">DEMO</span></h2><div id="al2"></div></div></div></div>
+<div class="card"><h2>Hot Wallets <span class="demo" id="d3">DEMO</span></h2><div class="row" style="margin:0 0 10px"><label style="margin:0">Mag-upload ng CSV ng mga trader (galing sa fomo_collect.py):</label><input type="file" id="mf" multiple accept=".csv,.txt" style="max-width:260px"></div><p class="sub2" id="sb">Pindutin ang isa para pumunta sa Copy-Trade at subukan ang kopya. Gawa-gawang data ito para sa itsura lang.</p><div class="hot" id="hot"></div></div>
+<div class="cta" style="margin-top:14px"><div><b>Subukan muna bago maglagay ng totoong pera.</b><br><span>Tunay na data, tapat na resulta. Huwag ibigay ang private key kahit kanino.</span></div><button id="go">Simulan ang scan &rarr;</button></div></section>
+<section class="sec" id="s1">
+<h1 style="display:none">Paper Trade Backtester</h1>
+<p class="sub">Subukan ang strategy sa pekeng pera. Walang tunay na trade, walang internet na kailangan.</p>
+
+<div class="card">
+<div class="grid">
+<div><label>Pinagmulan ng presyo</label>
+<select id="a_src"><option value="gen">Sample (random, para sa demo)</option><option value="csv">Sarili kong data (CSV)</option></select></div>
+<div><label>Seed (para sa sample)</label><input id="a_seed" type="number" value="42"></div>
+<div><label>Puhunan (pekeng pera)</label><input id="a_cap" type="number" value="10000"></div>
+<div><label>Fast SMA</label><input id="a_fast" type="number" value="10"></div>
+<div><label>Slow SMA</label><input id="a_slow" type="number" value="30"></div>
+<div><label>Fee bawat trade (%)</label><input id="a_fee" type="number" step="0.01" value="0.10"></div>
+<div><label>Slippage (%)</label><input id="a_slip" type="number" step="0.01" value="0.05"></div>
+</div>
+<div id="a_csvbox" style="display:none;margin-top:10px">
+<label>I-paste ang CSV (isang presyo kada linya, o date,close). Lumang to bago.</label>
+<textarea id="a_csv" placeholder="2024-01-01,42000&#10;2024-01-02,42500"></textarea>
+<div class="row"><input type="file" id="a_file" accept=".csv,.txt"></div>
+</div>
+<div class="row"><button id="a_run">I-run ang backtest</button></div>
+</div>
+
+<div class="card" id="a_out" style="display:none">
+<div class="stats" id="a_stats"></div>
+<div class="verdict" id="a_verdict"></div>
+</div>
+<div class="card" id="a_chartcard" style="display:none">
+<canvas id="a_cv" width="800" height="260"></canvas>
+<div class="leg"><span style="color:var(--ac)">&#9632;</span> Strategy &nbsp; <span style="color:var(--bh)">&#9632;</span> Buy and hold</div>
+</div>
+<p class="warn">Hindi ito financial advice. Ang resulta ng backtest ay hindi garantiya sa live trading. Ang sample data ay random lang, kaya hindi nito pinapatunayan na profitable ang strategy; gamitin ang tunay na historical data (mula sa freqtrade o exchange) para sa totoong pagsubok.</p>
+
+</section>
+<section class="sec" id="s2">
+<h1 style="display:none">Wallet Copy-Trade Simulator</h1>
+<p class="sub">Alamin kung profitable pa rin ang pag-copy ng isang wallet pagkatapos ng delay, slippage, at fees. Pekeng pera lang, walang koneksyon sa wallet o exchange.</p>
+
+<div class="card">
+<label>Trades ng wallet (isang linya kada trade, pagkakasunod-sunod ng oras): <code>oras,token,buy/sell,presyo</code></label>
+<textarea id="b_csv"></textarea>
+<div class="row"><input type="file" id="b_file" accept=".csv,.txt" style="max-width:260px"><button class="alt" id="b_demo">Gumamit ng sample</button></div>
+<div class="grid" style="margin-top:12px">
+<div><label>Laki ng kopya kada buy ($)</label><input id="b_size" type="number" value="50"></div>
+<div><label>Fee kada trade (%)</label><input id="b_fee" type="number" step="0.1" value="1"></div>
+<div><label>Slippage (%)</label><input id="b_slip" type="number" step="0.1" value="2"></div>
+<div><label>Late-entry penalty (%)</label><input id="b_pen" type="number" step="0.1" value="5"></div>
+</div>
+<div class="row"><button id="b_run">I-simulate</button></div>
+</div>
+
+<div class="card" id="b_out" style="display:none">
+<div class="stats" id="b_stats"></div>
+<div class="verdict" id="b_verdict"></div>
+</div>
+<div class="card" id="b_sweep" style="display:none">
+<h2>Gaano kabilis mawala ang kita kapag mas late ang pasok mo?</h2>
+<div class="wrap"><table id="b_swt"></table></div>
+</div>
+<div class="card" id="b_det" style="display:none">
+<h2>Kada token (realistic na kopya)</h2>
+<div class="wrap"><table id="b_dt"></table></div>
+</div>
+
+<p class="warn">Mga palagay: kapag nag-buy ang wallet, bibili ka ng fixed na halaga; kapag nag-sell ito, ibebenta mo ang buong hawak mo sa token na iyon. Ang late-entry penalty ay ang mas masamang presyong nakukuha mo dahil sa delay (mas mataas sa buy, mas mababa sa sell). Ang bukas na posisyon ay minamarkahan sa huling presyo ng token sa log. Hindi ito financial advice at hindi garantiya ng resulta.</p>
+
+
+<p class="warn">Tip: patakbuhin ang <code>fomo_collect.py</code> sa computer mo para makakuha ng CSV bawat trader, tapos i-upload dito. Nasa tab na API Collector ang script.</p></section>
+<section class="sec" id="s3"><div class="card"><h2>Ilagay ang Fomo API key dito</h2>
+<p class="sub2">Ilalagay mo ang key sa field sa ibaba; hindi ito nakasulat sa file at diretso lang itong ipapadala ng browser mo sa getfomoapi.fun. Gagana lang ito kapag binuksan mo ang file sa computer mo o naka-host na ang page, hindi sa preview dito. Huwag gamitin sa computer ng iba.</p>
+<div class="grid"><div><label>API key</label><input id="f_key" type="password" placeholder="fomo_live_..." autocomplete="off"></div>
+<div><label>Leaderboard window</label><select id="f_win" style="width:100%;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)"><option>24h</option><option>7d</option><option>30d</option><option>all</option></select></div>
+<div><label>Ilang trader</label><input id="f_n" type="number" value="10"></div>
+<div><label>Big buy lang (min $)</label><input id="f_min" type="number" value="500"></div></div>
+<div class="row"><label style="margin:0;display:flex;gap:6px;align-items:center"><input id="f_rem" type="checkbox" style="width:auto"> Tandaan sa browser na ito</label><button id="f_go">Kunin ang data</button></div>
+<div class="verdict" id="f_st" style="min-height:20px"></div>
+<details style="margin-top:8px"><summary class="warn">Raw na response (para sa pag-aayos ng mga field)</summary><textarea id="f_raw" readonly style="min-height:140px"></textarea></details>
+<p class="warn">Pagkatapos makuha, awtomatikong lalabas ang mga trader sa Radar (Hot Wallets) at sa Auto Copy tab. Hindi ko pa nasubukan ito sa totoong API at hindi ko alam kung pinapayagan nito ang tawag mula sa browser. Kung hindi, gamitin ang script sa ibaba sa computer mo. Paper trading lang ito at hindi financial advice.</p></div>
+<div class="card"><h2>API Collector (sa computer mo tatakbo)</h2>
+<p class="sub2">Hindi tumatawag ng API ang page na ito at hindi dapat ilagay dito ang API key. Ang script sa ibaba ang kukuha ng data sa computer mo at gagawa ng CSV.</p>
+<ol style="margin:0 0 12px;padding-left:20px;line-height:1.8">
+<li>Mag-sign in sa getfomoapi.fun gamit ang Google at gumawa ng API key (independent na serbisyo ito, hindi official ng Fomo; tingnan ang presyo sa docs nila).</li>
+<li>I-copy ang script sa ibaba at i-save bilang <code>fomo_collect.py</code>.</li>
+<li><code>pip install requests</code>, tapos i-set ang <code>FOMO_API_KEY</code> bilang environment variable.</li>
+<li><code>python fomo_collect.py</code>. Lalabas ang mga CSV sa folder na <code>out/</code>.</li>
+<li>I-upload ang mga CSV sa Radar (Hot Wallets) o sa Copy-Trade tab.</li></ol>
+<div class="row" style="margin:0 0 8px"><button id="cp">Kopyahin ang script</button><span class="warn" id="cps"></span></div>
+<textarea id="pyc" readonly spellcheck="false" style="min-height:340px">&quot;&quot;&quot;
+fomo_collect.py - PAPER ONLY. Walang wallet key, walang totoong trade.
+
+Kumukuha ng top traders at swaps nila mula sa third-party &quot;Fomo API&quot;
+(getfomoapi.fun), tapos nagse-save ng CSV bawat trader na puwede mong
+i-upload sa Wallet Copy-Trade Simulator.
+
+Setup:
+    pip install requests
+    export FOMO_API_KEY=&quot;fomo_live_...&quot;      (Windows: set FOMO_API_KEY=...)
+Run:
+    python fomo_collect.py
+
+BABALA: hindi ko na-verify ang eksaktong format ng response ng API na ito.
+Laging tingnan muna ang mga file sa raw/ at i-adjust ang FIELDS sa ibaba.
+&quot;&quot;&quot;
+import os, sys, csv, json, time
+import requests
+
+BASE = &quot;https://getfomoapi.fun&quot;
+KEY = os.environ.get(&quot;FOMO_API_KEY&quot;)
+if not KEY:
+    sys.exit(&quot;I-set muna ang FOMO_API_KEY (environment variable).&quot;)
+H = {&quot;X-API-Key&quot;: KEY}
+
+WINDOW = &quot;24h&quot;        # leaderboard window
+TOP_N = 10            # ilang trader ang kukunin
+MIN_BUY_USD = 500     # &quot;big buy&quot; lang ang kokopyahin (sells laging kasama)
+
+# Posibleng pangalan ng field. I-edit batay sa nakita mo sa raw/*.json
+FIELDS = {
+    &quot;time&quot;:  [&quot;timestamp&quot;, &quot;time&quot;, &quot;createdAt&quot;, &quot;blockTime&quot;, &quot;date&quot;],
+    &quot;token&quot;: [&quot;tokenSymbol&quot;, &quot;symbol&quot;, &quot;tokenAddress&quot;, &quot;mint&quot;, &quot;token&quot;],
+    &quot;side&quot;:  [&quot;side&quot;, &quot;type&quot;, &quot;action&quot;, &quot;direction&quot;],
+    &quot;price&quot;: [&quot;priceUsd&quot;, &quot;price&quot;, &quot;tokenPrice&quot;],
+    &quot;usd&quot;:   [&quot;usdValue&quot;, &quot;valueUsd&quot;, &quot;amountUsd&quot;, &quot;usd&quot;, &quot;volumeUsd&quot;],
+}
+ID_KEYS = [&quot;id&quot;, &quot;userId&quot;, &quot;user_id&quot;]
+HANDLE_KEYS = [&quot;handle&quot;, &quot;username&quot;, &quot;name&quot;]
+
+os.makedirs(&quot;raw&quot;, exist_ok=True)
+os.makedirs(&quot;out&quot;, exist_ok=True)
+
+
+def get(path, params=None):
+    for _ in range(3):
+        time.sleep(0.25)  # limit: 5 requests/segundo
+        r = requests.get(BASE + path, headers=H, params=params, timeout=30)
+        if r.status_code == 429:  # sobra ang request, maghintay
+            time.sleep(float(r.headers.get(&quot;Retry-After&quot;, 2)))
+            continue
+        r.raise_for_status()
+        return r.json()
+    sys.exit(&quot;Sobra ang request (429). Subukan ulit mamaya.&quot;)
+
+
+def first_list(obj):
+    &quot;&quot;&quot;Hanapin ang unang listahan ng dict sa response, anuman ang hugis.&quot;&quot;&quot;
+    if isinstance(obj, list):
+        return obj
+    if isinstance(obj, dict):
+        for v in obj.values():
+            found = first_list(v)
+            if found and isinstance(found[0], dict):
+                return found
+    return []
+
+
+def pick(d, keys):
+    for k in keys:
+        if k in d and d[k] not in (None, &quot;&quot;):
+            return d[k]
+    return None
+
+
+def side_of(v):
+    s = str(v or &quot;&quot;).lower()
+    if s.startswith(&quot;b&quot;):
+        return &quot;buy&quot;
+    if s.startswith(&quot;s&quot;):
+        return &quot;sell&quot;
+    return None
+
+
+def save_raw(name, data):
+    with open(f&quot;raw/{name}.json&quot;, &quot;w&quot;) as f:
+        json.dump(data, f, indent=2)
+
+
+def main():
+    board = get(f&quot;/api/leaderboard/{WINDOW}&quot;, {&quot;limit&quot;: TOP_N})
+    save_raw(&quot;leaderboard&quot;, board)
+    traders = first_list(board)[:TOP_N]
+    if not traders:
+        sys.exit(&quot;Walang trader na nakuha. Tingnan ang raw/leaderboard.json&quot;)
+
+    for t in traders:
+        uid = pick(t, ID_KEYS)
+        handle = str(pick(t, HANDLE_KEYS) or uid)
+        if not uid and pick(t, HANDLE_KEYS):
+            prof = get(f&quot;/api/users/{handle}&quot;)  # may wrapper na responseObject
+            uid = pick(prof.get(&quot;responseObject&quot;, prof), ID_KEYS)
+        if not uid:
+            print(&quot;Walang id:&quot;, t)
+            continue
+        swaps_raw = get(f&quot;/api/users/{uid}/swaps&quot;, {&quot;limit&quot;: 50})
+        save_raw(f&quot;swaps_{handle}&quot;, swaps_raw)
+        rows, skipped = [], 0
+        for s in first_list(swaps_raw):
+            side = side_of(pick(s, FIELDS[&quot;side&quot;]))
+            price = pick(s, FIELDS[&quot;price&quot;])
+            token = pick(s, FIELDS[&quot;token&quot;])
+            ts = pick(s, FIELDS[&quot;time&quot;])
+            usd = pick(s, FIELDS[&quot;usd&quot;])
+            try:
+                price = float(price)
+                usd = float(usd) if usd is not None else 0.0
+            except (TypeError, ValueError):
+                skipped += 1
+                continue
+            if not (side and token and ts) or price &lt;= 0:
+                skipped += 1
+                continue
+            if side == &quot;buy&quot; and usd &lt; MIN_BUY_USD:
+                continue  # hindi &quot;big buy&quot;
+            rows.append((str(ts), str(token), side, price))
+        rows.sort(key=lambda r: r[0])  # lumang trade muna
+        path = f&quot;out/{handle}.csv&quot;
+        with open(path, &quot;w&quot;, newline=&quot;&quot;) as f:
+            csv.writer(f).writerows(rows)
+        print(f&quot;{handle}: {len(rows)} trades -&gt; {path} (nilaktawan: {skipped})&quot;)
+        if not rows:
+            print(&quot;  Walang laman. Baka iba ang pangalan ng field; i-edit ang FIELDS.&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</textarea>
+<p class="warn">Hindi ko pa nasubukan ang script sa totoong API. Tingnan ang mga file sa raw/ at i-edit ang FIELDS kung kailangan. Hindi ito financial advice.</p></div></section>
+<section class="sec" id="s4"><div class="card"><h2>Auto-Buy (Paper)</h2>
+<p class="sub2">Awtomatikong bibili ang simulation kapag may buy ang wallet, ayon sa mga patakaran mo, at ibebenta kapag nag-sell ang wallet, tumama sa stop loss, o tumama sa take profit. Pekeng pera lang; walang totoong order.</p>
+<label>Trades ng wallet (oras,token,buy/sell,presyo)</label><textarea id="c_csv"></textarea>
+<div class="row"><button class="alt" id="c_from">Kunin mula sa Copy-Trade tab</button><input type="file" id="c_file" accept=".csv,.txt" style="max-width:260px"></div>
+<div class="grid" style="margin-top:12px"><div><label>Pekeng puhunan ($)</label><input id="c_cap" type="number"  value="1000"></div><div><label>Laki kada buy ($)</label><input id="c_size" type="number"  value="50"></div><div><label>Max na bukas na posisyon</label><input id="c_maxp" type="number"  value="5"></div><div><label>Stop loss (%, 0 = wala)</label><input id="c_sl" type="number"  value="20"></div><div><label>Take profit (%, 0 = wala)</label><input id="c_tp" type="number"  value="50"></div><div><label>Fee kada trade (%)</label><input id="c_fee" type="number" step="0.1" value="1"></div><div><label>Slippage (%)</label><input id="c_slip" type="number" step="0.1" value="2"></div><div><label>Late-entry penalty (%)</label><input id="c_pen" type="number" step="0.1" value="5"></div></div>
+<div class="row"><button id="c_run">I-run ang auto-buy</button></div></div>
+<div class="card" id="c_out" style="display:none"><div class="stats" id="c_stats"></div><div class="verdict" id="c_v"></div></div>
+<div class="card" id="c_cc" style="display:none"><canvas id="c_cv" width="800" height="260"></canvas><div class="leg">Halaga ng pekeng account (cash + hawak) bawat trade ng wallet.</div></div>
+<div class="card" id="c_lg" style="display:none"><h2>Log ng paper trades</h2><div class="wrap"><table id="c_t"></table></div></div>
+<p class="warn">Limitasyon: ang stop loss at take profit ay sinusuri lang tuwing may bagong trade ang wallet sa token na iyon, dahil iyon lang ang presyong alam natin. Sa totoo, puwedeng gumalaw nang malaki ang presyo sa pagitan. Ang mga token na hindi na muling na-trade ay minamarkahan sa huling presyo. Hindi ito financial advice at hindi ito totoong auto-buy.</p></section>
+<section class="sec" id="s5"><div class="card"><h2>Auto Copy-Trade (Paper)</h2>
+<p class="sub2">Awtomatikong kokopyahin ng bot ang mga trade ng mga wallet habang nagpe-play ang data. Hindi mo kailangang pindutin ang buy o sell. Pekeng pera ito, at replay ng nakaraang data, hindi live na market.</p>
+<div class="row" style="margin:0 0 6px"><label style="margin:0">Mga wallet (isang CSV kada wallet):</label><input type="file" id="p_files" multiple accept=".csv,.txt" style="max-width:260px"><button class="alt mini" id="p_use">Gamitin ang data sa Copy-Trade tab</button></div>
+<div class="warn" id="p_wl"></div>
+<div class="grid" style="margin-top:12px"><div><label>Pekeng puhunan ($)</label><input id="p_cap" type="number"  value="1000"></div><div><label>Laki kada kopya ($)</label><input id="p_size" type="number"  value="50"></div><div><label>Max na bukas na posisyon</label><input id="p_maxp" type="number"  value="5"></div><div><label>Stop loss (%, 0 = wala)</label><input id="p_sl" type="number"  value="20"></div><div><label>Take profit (%, 0 = wala)</label><input id="p_tp" type="number"  value="50"></div><div><label>Fee kada trade (%)</label><input id="p_fee" type="number" step="0.1" value="1"></div><div><label>Slippage (%)</label><input id="p_slip" type="number" step="0.1" value="2"></div><div><label>Late-entry penalty (%)</label><input id="p_pen" type="number" step="0.1" value="5"></div>
+<div><label>Bilis (trades kada segundo)</label><select id="p_rate" style="width:100%;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)"><option>1</option><option selected>2</option><option>5</option><option>20</option></select></div></div>
+<div class="row"><button id="p_start">&#9654; Simulan ang auto copy</button><button class="alt" id="p_pause">Pause</button><button class="alt" id="p_reset">I-reset</button><span class="warn" id="p_prog"></span></div>
+<div class="verdict" id="p_msg" style="min-height:20px"></div></div>
+<div class="card"><div class="stats" id="p_stats"></div></div>
+<div class="card"><h2>Mga hawak ng bot</h2><div class="wrap"><table id="p_pos"></table></div></div>
+<div class="card"><h2>Log ng auto copy</h2><div class="wrap"><table id="p_log"></table></div></div>
+<p class="warn">Limitasyon: sinusuri lang ang stop loss at take profit kapag may bagong trade ang wallet sa token na iyon. Kapag maraming wallet, pinag-uuri ayon sa oras kung may oras ang CSV; kung wala, salitan ang mga wallet. Hindi ito totoong auto copy trade at hindi financial advice.</p></section>
+</main></div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+$('a_src').onchange=()=>{$('a_csvbox').style.display=$('a_src').value==='csv'?'block':'none'};
+$('a_file').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('a_csv').value=r.result};r.readAsText(f)};
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function gen(seed){const r=rng(seed),p=[100];for(let i=1;i<730;i++){const n=(r()+r()+r()+r()-2)*1.7;p.push(Math.max(1,p[i-1]*(1+0.0003+0.02*n)))}return p}
+function parse(t){const o=[];t.split(/\r?\n/).forEach(l=>{const c=l.split(/[,;\t]/);const v=parseFloat(c[c.length-1]);if(isFinite(v)&&v>0)o.push(v)});return o}
+function sma(a,i,n){let s=0;for(let k=i-n+1;k<=i;k++)s+=a[k];return s/n}
+function run(){
+ const P=$('a_src').value==='gen'?gen(+$('a_seed').value||1):parse($('a_csv').value);
+ const cap=+$('a_cap').value,f=+$('a_fast').value,s=+$('a_slow').value,fee=+$('a_fee').value/100,sl=+$('a_slip').value/100;
+ if(P.length<s+5||f>=s||f<1){alert('Kulang ang data o mali ang SMA (dapat mas maliit ang fast kaysa slow).');return}
+ let cash=cap,u=0,entry=0,trades=0,wins=0,eq=[],bh=[];
+ const b0=P[s-1],bu=cap/b0*(1-fee);
+ for(let i=s-1;i<P.length;i++){
+  if(i>s-1){const want=sma(P,i-1,f)>sma(P,i-1,s);
+   if(want&&!u){const px=P[i]*(1+sl);u=cash*(1-fee)/px;entry=cash;cash=0}
+   else if(!want&&u){const px=P[i]*(1-sl);cash=u*px*(1-fee);u=0;trades++;if(cash>entry)wins++}}
+  eq.push(cash+u*P[i]);bh.push(bu*P[i])}
+ const last=eq[eq.length-1],ret=last/cap-1,bret=bh[bh.length-1]/cap-1;
+ const dd=a=>{let m=-1,d=0;a.forEach(v=>{m=Math.max(m,v);d=Math.min(d,v/m-1)});return d};
+ const r=[];for(let i=1;i<eq.length;i++)r.push(eq[i]/eq[i-1]-1);
+ const mu=r.reduce((a,b)=>a+b,0)/r.length,sd=Math.sqrt(r.reduce((a,b)=>a+(b-mu)**2,0)/r.length);
+ const sh=sd?mu/sd*Math.sqrt(365):0;
+ const pc=v=>(v*100).toFixed(1)+'%',cl=v=>v>=0?'pos':'neg';
+ const S=[['Final na pera','$'+last.toFixed(0),''],['Return',pc(ret),cl(ret)],['Buy and hold',pc(bret),cl(bret)],['Max drawdown',pc(dd(eq)),'neg'],['Dami ng trades',trades,''],['Win rate',trades?pc(wins/trades):'-',''],['Sharpe (tantya)',sh.toFixed(2),cl(sh)]];
+ $('a_stats').innerHTML=S.map(x=>`<div class="s"><span>${x[0]}</span><b class="${x[2]}">${x[1]}</b></div>`).join('');
+ let v=ret>bret?'Natalo ng strategy ang buy-and-hold sa data na ito':'Hindi natalo ng strategy ang buy-and-hold';
+ if(trades<30)v+='. Kaunti ang trades ('+trades+'), kaya posibleng swerte lang. Maghangad ng daan-daan.';
+ else v+='. Subukan din sa ibang period (out-of-sample) bago magtiwala.';
+ $('a_verdict').textContent=v;
+ $('a_out').style.display=$('a_chartcard').style.display='block';
+ draw(eq,bh)}
+function draw(a,b){
+ const c=$('a_cv'),x=c.getContext('2d'),W=c.width=c.clientWidth*2,H=c.height=520,cs=getComputedStyle(document.documentElement);
+ const all=a.concat(b),mn=Math.min(...all),mx=Math.max(...all),pad=20;
+ x.clearRect(0,0,W,H);x.strokeStyle=cs.getPropertyValue('--bd');x.lineWidth=1;
+ for(let i=0;i<=4;i++){const y=pad+(H-2*pad)*i/4;x.beginPath();x.moveTo(0,y);x.lineTo(W,y);x.stroke()}
+ const line=(d,col)=>{x.strokeStyle=col;x.lineWidth=3;x.beginPath();d.forEach((v,i)=>{const px=i/(d.length-1)*W,py=H-pad-(v-mn)/(mx-mn||1)*(H-2*pad);i?x.lineTo(px,py):x.moveTo(px,py)});x.stroke()};
+ line(b,cs.getPropertyValue('--bh').trim());line(a,cs.getPropertyValue('--ac').trim())}
+$('a_run').onclick=run;run();
+})();
+(function(){
+const $=id=>document.getElementById(id);
+function parse(t){const o=[];t.split(/\r?\n/).forEach(l=>{const c=l.split(/[,;\t]/).map(x=>x.trim());if(c.length<4)return;const p=parseFloat(c[3]),s=c[2].toLowerCase()[0];if(isFinite(p)&&p>0&&(s==='b'||s==='s'))o.push({k:c[1],b:s==='b',p})});return o}
+function sim(T,size,fee,slip,pen){
+ const P={},last={};
+ T.forEach(t=>{last[t.k]=t.p;const q=P[t.k]||(P[t.k]={u:0,spent:0,got:0});
+  if(t.b){const px=t.p*(1+slip+pen);q.u+=size*(1-fee)/px;q.spent+=size}
+  else if(q.u>0){const px=t.p*(1-slip-pen);q.got+=q.u*px*(1-fee);q.u=0}});
+ let sp=0,go=0,w=0,n=0;const rows=[];
+ for(const k in P){const q=P[k];let open=q.u>0;if(open)q.got+=q.u*last[k]*(1-fee);if(!q.spent)continue;
+  sp+=q.spent;go+=q.got;n++;if(q.got>q.spent)w++;rows.push({k,r:q.got/q.spent-1,open})}
+ return{sp,go,n,w,ret:sp?go/sp-1:0,rows}}
+function run(){
+ const T=parse($('b_csv').value);if(T.length<4){alert('Kulang ang data. Format: oras,token,buy/sell,presyo');return}
+ const size=+$('b_size').value,fee=+$('b_fee').value/100,slip=+$('b_slip').value/100,pen=+$('b_pen').value/100;
+ const ideal=sim(T,size,0,0,0),real=sim(T,size,fee,slip,pen);
+ const pc=v=>(v*100).toFixed(1)+'%',cl=v=>v>=0?'pos':'neg',pl=real.go-real.sp;
+ const S=[['Return ng wallet (ideal, walang delay)',pc(ideal.ret),cl(ideal.ret)],['Return ng kopya mo (realistic)',pc(real.ret),cl(real.ret)],['Kita/lugi (pekeng $)',(pl>=0?'+':'')+'$'+pl.toFixed(0),cl(pl)],['Nai-trade na token',real.n,''],['Win rate (kopya)',real.n?pc(real.w/real.n):'-','']];
+ $('b_stats').innerHTML=S.map(x=>`<div class="s"><span>${x[0]}</span><b class="${x[2]}">${x[1]}</b></div>`).join('');
+ let v=ideal.ret>0&&real.ret<=0?'Profitable ang wallet sa papel, pero nawala ang kita pagkatapos ng delay at gastos. Ito ang pinakakaraniwang nangyayari sa copy trading.':real.ret>0?'Profitable pa rin ang kopya sa mga setting na ito. Subukan ang mas mataas na penalty sa talaan sa ibaba, at huwag magtiwala sa maliit na sample.':'Hindi profitable ang kopya sa mga setting na ito.';
+ if(real.n<30)v+=' Kaunti ang token ('+real.n+'), kaya malaki ang tsansang swerte lang.';
+ $('b_verdict').textContent=v;
+ let h='<tr><th>Penalty</th><th>Return ng kopya</th><th>Kita/lugi</th></tr>';
+ [0,2,5,10,20,30].forEach(p=>{const r=sim(T,size,fee,slip,p/100),d=r.go-r.sp;h+=`<tr><td>${p}%</td><td class="${cl(r.ret)}">${pc(r.ret)}</td><td class="${cl(d)}">${d>=0?'+':'-'}$${Math.abs(d).toFixed(0)}</td></tr>`});
+ $('b_swt').innerHTML=h;
+ $('b_dt').innerHTML='<tr><th>Token</th><th>Return</th><th>Estado</th></tr>'+real.rows.map(r=>`<tr><td>${r.k}</td><td class="${cl(r.r)}">${pc(r.r)}</td><td>${r.open?'bukas':'sarado'}</td></tr>`).join('');
+ ['b_out','b_sweep','b_det'].forEach(i=>$(i).style.display='block')}
+function demo(){let s=1234;const R=()=>{s=(s*1664525+1013904223)%4294967296;return s/4294967296};const N=()=>(R()+R()+R()+R()-2)*1.7;let o=[],t=1;
+ for(let i=1;i<=40;i++){const m=Math.exp(N()*0.9+0.03);o.push(`${t++},TOKEN${i},buy,1`);o.push(`${t++},TOKEN${i},sell,${m.toFixed(3)}`)}
+ $('b_csv').value=o.join('\n')}
+$('b_demo').onclick=()=>{demo();run()};
+$('b_file').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$('b_csv').value=r.result;run()};r.readAsText(f)};
+$('b_run').onclick=run;demo();run();
+})();
+(function(){const g=i=>document.getElementById(i);
+const map=[['a_stats',1,'rc1'],['a_stats',2,'rc2'],['b_stats',0,'rc3'],['b_stats',1,'rc4']];
+function upd(){map.forEach(([st,i,t])=>{const b=g(st).querySelectorAll('b')[i];if(b){g(t).textContent=b.textContent;g(t).className=b.className}})}
+['a_stats','b_stats'].forEach(st=>new MutationObserver(upd).observe(g(st),{childList:true}));upd();
+const nv=document.querySelectorAll('.nv');
+function sw(n){['s0','s1','s2','s3','s4','s5'].forEach((x,k)=>g(x).classList.toggle('on',k===n));nv.forEach((b,k)=>b.classList.toggle('on',k===n));if(n===1)g('a_run').click();if(n===4)g('c_run').click();scrollTo(0,0)}
+nv.forEach((b,k)=>b.onclick=()=>sw(k));g('go').onclick=()=>sw(2)})();
+(function(){const g=i=>document.getElementById(i);
+let D=[{n:'whale_alpha',r:24.6,t:38,b:2400},{n:'sol_sniper',r:18.3,t:112,b:650},{n:'degen_mia',r:15.7,t:64,b:900},{n:'lowkey_jun',r:12.4,t:27,b:1300},{n:'moon_dad',r:10.9,t:51,b:520}];
+const A=[['#19e07a','Big buy','whale_alpha','2m'],['#e0b341','Profit up','sol_sniper','8m'],['#b06bff','Big buy','degen_mia','12m'],['#ff5c5c','Large sell','lowkey_jun','18m']];
+const col=i=>`hsl(${(i*67+140)%360} 60% 40%)`;
+function render(q){const L=D.filter(d=>d.n.includes(q.toLowerCase().trim()));
+g('tt').innerHTML=L.map((d,i)=>`<div class="tr"><em>${i+1}</em><span class="av" style="background:${col(i)}">${d.n[0].toUpperCase()}</span><div><b>${d.n}</b><small>${d.t} trades</small></div><strong class="${d.r>=0?'pos':'neg'}">${d.r>=0?'&uarr;':'&darr;'} ${d.r}%</strong></div>`).join('')||'<small>Walang tugma.</small>';
+g('hot').innerHTML=L.map((d,i)=>`<button class="hc"><div class="hv" style="background:linear-gradient(135deg,${col(i)},#0c1412)">${d.n[0].toUpperCase()}</div><b>${d.n}</b><small>Laki $${d.b}/buy</small><strong class="${d.r>=0?'pos':'neg'}">${d.r>=0?'&uarr;':'&darr;'} ${d.r}%</strong></button>`).join('');
+document.querySelectorAll('.hc').forEach(b=>b.onclick=()=>document.querySelectorAll('.nv')[2].click())}
+g('al2').innerHTML=A.map(a=>`<div class="tr" style="grid-template-columns:12px 1fr auto"><span class="dot" style="background:${a[0]};margin:0"></span><div><b>${a[1]}</b><small>${a[2]}</small></div><small>${a[3]} ago</small></div>`).join('');
+function pr(t){const o=[];t.split(/\r?\n/).forEach(l=>{const c=l.split(/[,;\t]/).map(x=>x.trim());if(c.length<4)return;const p=parseFloat(c[3]),x=c[2].toLowerCase()[0];if(isFinite(p)&&p>0&&(x==='b'||x==='s'))o.push({k:c[1],b:x==='b',p})});return o}
+function sm(T,size,fee,slip,pen){const P={},last={};T.forEach(t=>{last[t.k]=t.p;const q=P[t.k]||(P[t.k]={u:0,sp:0,go:0});if(t.b){q.u+=size*(1-fee)/(t.p*(1+slip+pen));q.sp+=size}else if(q.u>0){q.go+=q.u*t.p*(1-slip-pen)*(1-fee);q.u=0}});let sp=0,go=0;for(const k in P){const q=P[k];if(q.u>0)q.go+=q.u*last[k]*(1-fee);sp+=q.sp;go+=q.go}return sp?go/sp-1:0}
+g('mf').onchange=async e=>{const o=[];const sz=+g('b_size').value,fee=+g('b_fee').value/100,sl=+g('b_slip').value/100,pn=+g('b_pen').value/100;
+for(const f of e.target.files){const T=pr(await f.text());if(T.length<4)continue;o.push({n:f.name.replace(/\.[^.]+$/,''),r:+(sm(T,sz,fee,sl,pn)*100).toFixed(1),t:T.length,b:sz})}
+if(!o.length){alert('Walang nabasang trades. Format: oras,token,buy/sell,presyo');return}
+o.sort((a,b)=>b.r-a.r);D=o;g('d1').textContent=g('d3').textContent='CSV MO';g('d1').style.color=g('d3').style.color='var(--ac)';g('d1').style.borderColor=g('d3').style.borderColor='var(--ac)';
+g('sb').textContent='Ranggo ito ng realistic na kopya gamit ang fee, slippage, at penalty na nasa Copy-Trade tab. Kaunting trades ay puwedeng swerte lang.';render(g('q').value)};
+g('cp').onclick=()=>{const t=g('pyc');t.select();let ok=false;try{ok=document.execCommand('copy')}catch(x){}g('cps').textContent=ok?'Nakopya na.':'Piliin na ang laman; pindutin ang Ctrl+C.'};
+g('q').oninput=e=>render(e.target.value);render('')})();
+(function(){const g=i=>document.getElementById(i);
+function pr(t){const o=[];t.split(/\r?\n/).forEach(l=>{const c=l.split(/[,;\t]/).map(x=>x.trim());if(c.length<4)return;const p=parseFloat(c[3]),x=c[2].toLowerCase()[0];if(isFinite(p)&&p>0&&(x==='b'||x==='s'))o.push({k:c[1],b:x==='b',p})});return o}
+function auto(T,o){let cash=o.cap,pos={},last={},eq=[o.cap],log=[],closed=0,wins=0;
+const val=()=>{let v=cash;for(const k in pos)v+=pos[k].u*(last[k]*(1-o.slip-o.pen)*(1-o.fee));return v};
+for(const t of T){last[t.k]=t.p;const q=pos[t.k];
+if(q){const px=t.p*(1-o.slip-o.pen),chg=px/q.e-1;let why=null;
+if(!t.b)why='wallet sell';else if(o.sl&&chg<=-o.sl)why='stop loss';else if(o.tp&&chg>=o.tp)why='take profit';
+if(why){const got=q.u*px*(1-o.fee);cash+=got;closed++;if(got>q.cost)wins++;log.push([t.k,'SELL ('+why+')',t.p,got-q.cost]);delete pos[t.k]}}
+else if(t.b&&Object.keys(pos).length<o.maxp&&cash>=o.size){const px=t.p*(1+o.slip+o.pen);pos[t.k]={u:o.size*(1-o.fee)/px,cost:o.size,e:px};cash-=o.size;log.push([t.k,'BUY',t.p,null])}
+eq.push(val())}
+let pk=-1,dd=0;eq.forEach(v=>{pk=Math.max(pk,v);dd=Math.min(dd,v/pk-1)});
+const fin=eq[eq.length-1];return{fin,eq,closed,wins,open:Object.keys(pos).length,log,dd,ret:fin/o.cap-1}}
+function draw(a,cap){const c=g('c_cv'),x=c.getContext('2d'),W=c.width=c.clientWidth*2,H=c.height=520,cs=getComputedStyle(document.documentElement),pad=20;
+const mn=Math.min(cap,...a),mx=Math.max(cap,...a),Y=v=>H-pad-(v-mn)/(mx-mn||1)*(H-2*pad);x.clearRect(0,0,W,H);
+x.strokeStyle=cs.getPropertyValue('--bd');x.lineWidth=1;x.beginPath();x.moveTo(0,Y(cap));x.lineTo(W,Y(cap));x.stroke();
+x.strokeStyle=cs.getPropertyValue('--ac').trim();x.lineWidth=3;x.beginPath();a.forEach((v,i)=>{const px=i/(a.length-1||1)*W;i?x.lineTo(px,Y(v)):x.moveTo(px,Y(v))});x.stroke()}
+function run(){if(!g('c_csv').value.trim())g('c_csv').value=g('b_csv').value;const T=pr(g('c_csv').value);
+if(T.length<4){alert('Kulang ang data. Format: oras,token,buy/sell,presyo');return}
+const v=i=>+g('c_'+i).value,o={cap:v('cap'),size:v('size'),maxp:v('maxp'),sl:v('sl')/100,tp:v('tp')/100,fee:v('fee')/100,slip:v('slip')/100,pen:v('pen')/100};
+const r=auto(T,o),b=auto(T,{...o,sl:0,tp:0}),pc=x=>(x*100).toFixed(1)+'%',cl=x=>x>=0?'pos':'neg',pl=r.fin-o.cap;
+const S=[['Final na account','$'+r.fin.toFixed(0),''],['Return',pc(r.ret),cl(r.ret)],['Kita/lugi (pekeng $)',(pl>=0?'+':'-')+'$'+Math.abs(pl).toFixed(0),cl(pl)],['Sarado na trades',r.closed,''],['Win rate',r.closed?pc(r.wins/r.closed):'-',''],['Max drawdown',pc(r.dd),'neg'],['Bukas pa',r.open,''],['Return kung walang SL/TP',pc(b.ret),cl(b.ret)]];
+g('c_stats').innerHTML=S.map(x=>`<div class="s"><span>${x[0]}</span><b class="${x[2]}">${x[1]}</b></div>`).join('');
+let t=r.ret>0?'Profitable sa paper sa data na ito, pero subukan sa ibang wallet at panahon bago magtiwala.':'Hindi profitable ang auto-buy sa mga patakarang ito sa data na ito.';
+if(r.closed<30)t+=' Kaunti ang sarado na trades ('+r.closed+'), kaya posibleng swerte o malas lang.';
+g('c_v').textContent=t;
+g('c_t').innerHTML='<tr><th>Token</th><th>Aksyon</th><th>Presyo</th><th>P/L ($)</th></tr>'+r.log.slice(0,60).map(l=>`<tr><td>${l[0]}</td><td>${l[1]}</td><td>${l[2]}</td><td class="${l[3]==null?'':cl(l[3])}">${l[3]==null?'-':(l[3]>=0?'+':'')+l[3].toFixed(2)}</td></tr>`).join('');
+['c_out','c_cc','c_lg'].forEach(i=>g(i).style.display='block');draw(r.eq,o.cap)}
+g('c_run').onclick=run;
+g('c_from').onclick=()=>{g('c_csv').value=g('b_csv').value;run()};
+g('c_file').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{g('c_csv').value=rd.result;run()};rd.readAsText(f)}})();
+(function(){const g=i=>document.getElementById(i);
+const pc=x=>(x*100).toFixed(1)+'%',cl=x=>x>=0?'pos':'neg',f2=x=>x.toFixed(2);
+let S={ev:[],i:0,cash:0,cap:1,pos:{},lt:{},log:[],closed:0,wins:0,tm:null,names:[]};
+const msg=t=>g('p_msg').textContent=t;
+const R=()=>({size:+g('p_size').value,maxp:+g('p_maxp').value,sl:+g('p_sl').value/100,tp:+g('p_tp').value/100,fee:+g('p_fee').value/100,slip:+g('p_slip').value/100,pen:+g('p_pen').value/100});
+function pr(t,w){const o=[];t.split(/\r?\n/).forEach(l=>{const c=l.split(/[,;\t]/).map(x=>x.trim());if(c.length<4)return;const p=parseFloat(c[3]),x=c[2].toLowerCase()[0];if(isFinite(p)&&p>0&&(x==='b'||x==='s'))o.push({w,k:c[1],b:x==='b',p,ts:c[0],n:o.length})});return o}
+function merge(L){let all=[];L.forEach(l=>all=all.concat(l));const tv=e=>e.ts!==''&&isFinite(Number(e.ts))?Number(e.ts):Date.parse(e.ts);const ok=all.length&&all.every(e=>isFinite(tv(e)));
+return all.map((e,j)=>({e,j})).sort((a,b)=>(ok?tv(a.e)-tv(b.e):a.e.n-b.e.n)||a.j-b.j).map(x=>x.e)}
+function pause(){clearInterval(S.tm);S.tm=null}
+function reset(){pause();const c=+g('p_cap').value||1000;S.i=0;S.cash=S.cap=c;S.pos={};S.lt={};S.log=[];S.closed=S.wins=0;
+g('p_wl').textContent=S.names.length?'Wallets: '+S.names.join(', ')+' ('+S.ev.length+' trades)':'Wala pang data.';msg('');draw()}
+function load(src){S.names=src.map(x=>x[0]);S.ev=merge(src.map(x=>pr(x[1],x[0])));reset()}
+const demo=()=>load([['Wallet A (demo)',g('b_csv').value]]);
+function eq(){const o=R();let v=S.cash;for(const k in S.pos){const q=S.pos[k];v+=q.u*S.lt[q.k]*(1-o.slip-o.pen)*(1-o.fee)}return v}
+function done(){const r=eq()/S.cap-1;msg('Tapos ang replay. Return: '+pc(r)+', sarado na trades: '+S.closed+(S.closed<30?'. Kaunti ang trades, kaya posibleng swerte o malas lang.':'.')+(r<=0?' Hindi profitable ang auto copy sa data na ito.':' Profitable sa paper; subukan sa ibang wallet at panahon bago magtiwala.'))}
+function step(){if(S.i>=S.ev.length){pause();done();return}
+const t=S.ev[S.i++],o=R(),key=t.w+'|'+t.k,q=S.pos[key];S.lt[t.k]=t.p;
+if(q){const px=t.p*(1-o.slip-o.pen),chg=px/q.e-1;let why=null;
+if(!t.b)why='wallet sell';else if(o.sl&&chg<=-o.sl)why='stop loss';else if(o.tp&&chg>=o.tp)why='take profit';
+if(why){const got=q.u*px*(1-o.fee),pl=got-q.cost;S.cash+=got;S.closed++;if(pl>0)S.wins++;delete S.pos[key];S.log.unshift([t.w,t.k,'SELL ('+why+')',t.p,pl])}}
+else if(t.b&&Object.keys(S.pos).length<o.maxp&&S.cash>=o.size){const px=t.p*(1+o.slip+o.pen);S.pos[key]={w:t.w,k:t.k,u:o.size*(1-o.fee)/px,cost:o.size,e:px};S.cash-=o.size;S.log.unshift([t.w,t.k,'BUY (kopya)',t.p,null])}
+S.log=S.log.slice(0,200);draw();if(S.i>=S.ev.length){pause();done()}}
+function draw(){const e=eq(),pl=e-S.cap,o=R();g('p_prog').textContent='Trade '+S.i+' / '+S.ev.length;
+g('p_stats').innerHTML=[['Cash','$'+f2(S.cash),''],['Halaga ng account','$'+f2(e),''],['Kita/lugi',(pl>=0?'+':'-')+'$'+f2(Math.abs(pl))+' ('+pc(pl/S.cap)+')',cl(pl)],['Sarado na trades',S.closed+' ('+S.wins+' panalo)',''],['Bukas pa',Object.keys(S.pos).length,'']].map(x=>`<div class="s"><span>${x[0]}</span><b class="${x[2]}">${x[1]}</b></div>`).join('');
+const ks=Object.keys(S.pos);
+g('p_pos').innerHTML='<tr><th>Wallet</th><th>Token</th><th>Gastos</th><th>Halaga ngayon</th><th>P/L</th></tr>'+(ks.map(k=>{const q=S.pos[k],v=q.u*S.lt[q.k]*(1-o.slip-o.pen)*(1-o.fee),r=v/q.cost-1;return `<tr><td>${q.w}</td><td>${q.k}</td><td>$${f2(q.cost)}</td><td>$${f2(v)}</td><td class="${cl(r)}">${pc(r)}</td></tr>`}).join('')||'<tr><td colspan="5">Wala pang hawak.</td></tr>');
+g('p_log').innerHTML='<tr><th>Wallet</th><th>Token</th><th>Aksyon</th><th>Presyo</th><th>P/L ($)</th></tr>'+(S.log.slice(0,25).map(l=>`<tr><td>${l[0]}</td><td>${l[1]}</td><td>${l[2]}</td><td>${l[3]}</td><td class="${l[4]==null?'':cl(l[4])}">${l[4]==null?'-':(l[4]>=0?'+':'-')+f2(Math.abs(l[4]))}</td></tr>`).join('')||'<tr><td colspan="5">Wala pa.</td></tr>')}
+function start(){if(!S.ev.length)demo();if(S.i>=S.ev.length)reset();if(S.tm)return;S.tm=setInterval(step,1000/(+g('p_rate').value||2));msg('Tumatakbo ang auto copy...')}
+g('p_start').onclick=start;g('p_pause').onclick=()=>{pause();msg('Naka-pause.')};g('p_reset').onclick=reset;
+g('p_rate').onchange=()=>{if(S.tm){pause();start()}};
+g('p_use').onclick=demo;
+g('p_files').onchange=async e=>{const r=[];for(const f of e.target.files)r.push([f.name.replace(/\.[^.]+$/,''),await f.text()]);if(r.length)load(r)};
+demo()})();
+(function(){const g=i=>document.getElementById(i),sl=ms=>new Promise(r=>setTimeout(r,ms));
+const FL={time:['timestamp','time','createdAt','blockTime','date'],token:['tokenSymbol','symbol','tokenAddress','mint','token'],side:['side','type','action','direction'],price:['priceUsd','price','tokenPrice'],usd:['usdValue','valueUsd','amountUsd','usd','volumeUsd']};
+const pick=(d,ks)=>{for(const k of ks)if(d&&d[k]!=null&&d[k]!=='')return d[k];return null};
+function fl(o){if(Array.isArray(o))return o;if(o&&typeof o==='object')for(const v of Object.values(o)){const f=fl(v);if(f&&f.length&&typeof f[0]==='object')return f}return[]}
+try{const k=localStorage.getItem('fomo_key');if(k){g('f_key').value=k;g('f_rem').checked=true}}catch(e){}
+async function fg(path,key,params){const u=new URL('https://getfomoapi.fun'+path);for(const k in params||{})u.searchParams.set(k,params[k]);
+for(let i=0;i<3;i++){await sl(250);const r=await fetch(u,{headers:{'X-API-Key':key}});if(r.status===429){await sl((+r.headers.get('Retry-After')||2)*1000);continue}if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}throw new Error('Sobra ang request (429).')}
+const tv=x=>{const n=Number(x);return isFinite(n)?n:Date.parse(x)};
+function feed(id,files){const dt=new DataTransfer();files.forEach(f=>dt.items.add(f));const el=g(id);el.files=dt.files;el.dispatchEvent(new Event('change'))}
+g('f_go').onclick=async()=>{const key=g('f_key').value.trim(),st=g('f_st');if(!key){st.textContent='Ilagay muna ang API key.';return}
+try{if(g('f_rem').checked)localStorage.setItem('fomo_key',key);else localStorage.removeItem('fomo_key')}catch(e){}
+const n=+g('f_n').value||10,minb=+g('f_min').value||0;let raw='';g('f_go').disabled=true;
+try{st.textContent='Kinukuha ang leaderboard...';let bd=null;for(const w of [g('f_win').value,'7d','30d','all']){bd=await fg('/api/leaderboard/'+w,key,{limit:n});if(fl(bd).length)break;st.textContent='Walang laman ang '+w+'; sinusubukan ang iba...'}raw+='LEADERBOARD\n'+JSON.stringify(bd,null,1).slice(0,3000);
+const tr=fl(bd).slice(0,n);if(!tr.length)throw new Error('Tinanggap ng API ang key pero walang laman ang sagot sa lahat ng window. Posibleng hindi kasama sa plan mo ang leaderboard, o iba ang hugis ng data. Tingnan ang dashboard ng serbisyo at ang raw sa ibaba.');
+const files=[];let i=0;
+for(const t of tr){i++;let uid=pick(t,['id','userId','user_id']);const hd=pick(t,['handle','username','name']),handle=String(hd||uid);
+st.textContent='Trader '+i+'/'+tr.length+': '+handle;
+if(!uid&&hd){const pf=await fg('/api/users/'+encodeURIComponent(handle),key);uid=pick(pf.responseObject||pf,['id','userId','user_id'])}
+if(!uid)continue;
+const sw=await fg('/api/users/'+uid+'/swaps',key,{limit:50});if(i===1)raw+='\n\nSWAPS (unang trader)\n'+JSON.stringify(sw,null,1).slice(0,3000);
+const rows=[];for(const s of fl(sw)){const sd=String(pick(s,FL.side)||'').toLowerCase()[0],side=sd==='b'?'buy':sd==='s'?'sell':null,pr=parseFloat(pick(s,FL.price)),tk=pick(s,FL.token),ts=pick(s,FL.time),us=parseFloat(pick(s,FL.usd))||0;
+if(!side||!tk||ts==null||!(pr>0))continue;if(side==='buy'&&us<minb)continue;rows.push([ts,tk,side,pr])}
+rows.sort((a,b)=>tv(a[0])-tv(b[0]));
+if(rows.length)files.push(new File([rows.map(r=>r.join(',')).join('\n')],handle.replace(/[^\w.-]/g,'_')+'.csv',{type:'text/csv'}))}
+g('f_raw').value=raw;
+if(!files.length)throw new Error('Walang nabuong trades. Tingnan ang raw sa ibaba; ipakita sa akin ang hugis para maayos ang mga field.');
+feed('mf',files);feed('p_files',files);st.textContent='Tapos: '+files.length+' trader. Tingnan ang Radar (Hot Wallets) at ang Auto Copy tab.'}
+catch(e){g('f_raw').value=raw;st.textContent=(e instanceof TypeError?'Hindi naabot ang API (posibleng hinarang ng browser dahil sa CORS, walang internet, o nasa preview ito). Gamitin ang script sa ibaba. ':'')+e.message}
+g('f_go').disabled=false}})();
+</script></body></html>
